@@ -4,8 +4,15 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  
+  <!-- bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+  
+  <!-- my scripts -->
+  <script src="/js/product-data.js" type="module"></script>
+  <script src="/js/script.js" type="module"></script>
 </head>
+
 <body>
   <header class="bg-light">
 
@@ -38,116 +45,341 @@
           <div class="col-9">
 
             <div class="row row-cols-md-1 row-cols-lg-2 row-cols-xl-3 g-3">
+
+
+              <!-- product 1 - apple 1 -->
               <div class="col">
                 <div class="card shadow-sm">
                   <a class="mx-auto" href="/product-pages/apple1.html">  
-                    <img src="/images/apple.png" width="200" height="200">
+                    <img src="/images/apple1.png" width="200" height="200">
                   </a>
       
                   <div class="card-body">
+                    <h1 class="mb-4 display-6">Apple 1</h1>
                     <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
     
-                    <div class="card-text" id="product-attribute color">Colors:</div>
-                    <button type="button" class="btn bg-primary border border-secondary my-1 mx-1"></button>
-                    <button type="button" class="btn bg-danger border border-secondary my-1 mx-1"></button>
-                    <button type="button" class="btn bg-success border border-secondary my-1 mx-1"></button>
+                    <!-- colour choice -->
+                    <div class="mb-2" id="color-choice">
+                      <div class="card-text" id="product-attribute color">Colors:</div>
+                      <input type="radio" class="btn-check" name="options-outlined-colors-apple1" id="primary-outlined-colors-apple1" autocomplete="off" checked>
+                      <label class="btn btn-outline-primary" for="primary-outlined-colors-apple1">Blue</label>
+                                        
+                      <input type="radio" class="btn-check" name="options-outlined-colors-apple1" id="success-outlined-colors-apple1" autocomplete="off">
+                      <label class="btn btn-outline-success" for="success-outlined-colors-apple1">Green</label>
+
+                      <input type="radio" class="btn-check" name="options-outlined-colors-apple1" id="danger-outlined-colors-apple1" autocomplete="off">
+                      <label class="btn btn-outline-danger" for="danger-outlined-colors-apple1">Red</label>
+                    </div>
     
-                    <div class="card-text" id="product-attribute color">Sizes:</div>
-                    <button type="button" class="btn border border-secondary my-1 mx-1">S</button>
-                    <button type="button" class="btn border border-secondary my-1 mx-1">M</button>
-                    <button type="button" class="btn border border-secondary my-1 mx-1">L</button>
+                    <!-- size choice -->
+                    <div class="mb-2" id="size-choice">
+                      <div class="card-text" id="product-attribute color">Sizes:</div>
+                      <input type="radio" class="btn-check" name="options-outlined-sizes-apple1" id="secondary1-outlined-sizes-apple1" autocomplete="off" checked>
+                      <label class="btn btn-outline-secondary" for="secondary1-outlined-sizes-apple1">S</label>
+                      
+                      <input type="radio" class="btn-check" name="options-outlined-sizes-apple1" id="secondary2-outlined-sizes-apple1" autocomplete="off">
+                      <label class="btn btn-outline-secondary" for="secondary2-outlined-sizes-apple1">M</label>
+  
+                      <input type="radio" class="btn-check" name="options-outlined-sizes-apple1" id="secondary3-outlined-sizes-apple1" autocomplete="off">
+                      <label class="btn btn-outline-secondary" for="secondary3-outlined-sizes-apple1">L</label>
+                    </div>
     
-                    <div class="card-text" id="product-attribute color">Quantity:</div>
-                    <button type="button" class="btn border m-1">+</button>
-                    <button type="button" class="btn border m-1">-</button>
-                    <button type="button" class="btn border border-secondary m-1">1</button>
-    
-                    <button type="button" class="btn btn-primary d-block mt-4 px-3">Buy</button>
+                    <!-- quantity -->
+                    <div class="mb-2" id="quantity-choice">
+                      <div class="card-text" id="product-attribute color">Quantity:</div>
+                      <button type="button" class="btn border m-1" id="quantity-up">+</button>
+                      <button type="button" class="btn border m-1" id="quantity-down">-</button>
+                      <span class="ms-2 badge bg-secondary" id="quantity-indicator">1</span>
+                    </div>
+                    
+                    <div>
+                      <button type="button" class="btn btn-primary mt-4 px-3">Buy</button>
+                      <button type="button" class="btn btn-secondary mt-4 px-3">Remove</button>
+                    </div>
+                  
                   </div>
-                </div>
-              </div>
+                </div> <!-- card -->
+              </div> <!-- col -->
+
+
+              <!-- product 2 - apple 2 -->
               <div class="col">
                 <div class="card shadow-sm">
-                  <img class="mx-auto" src="/images/pear.png" width="200" height="200">
+                  <a class="mx-auto" href="/product-pages/apple2.html">  
+                    <img src="/images/apple2.png" width="200" height="200">
+                  </a>
       
                   <div class="card-body">
+                    <h1 class="mb-4 display-6">Apple 2</h1>
                     <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
     
-                    <div class="card-text" id="product-attribute color">Colors:</div>
-                    <button type="button" class="btn bg-primary border border-secondary my-1 mx-1"></button>
-                    <button type="button" class="btn bg-danger border border-secondary my-1 mx-1"></button>
-                    <button type="button" class="btn bg-success border border-secondary my-1 mx-1"></button>
+                    <!-- colour choice -->
+                    <div class="mb-2" id="color-choice">
+                      <div class="card-text" id="product-attribute color">Colors:</div>
+                      <input type="radio" class="btn-check" name="options-outlined-colors-apple2" id="primary-outlined-colors-apple2" autocomplete="off" checked>
+                      <label class="btn btn-outline-primary" for="primary-outlined-colors-apple2">Blue</label>
+                                        
+                      <input type="radio" class="btn-check" name="options-outlined-colors-apple2" id="success-outlined-colors-apple2" autocomplete="off">
+                      <label class="btn btn-outline-success" for="success-outlined-colors-apple2">Green</label>
+
+                      <input type="radio" class="btn-check" name="options-outlined-colors-apple2" id="danger-outlined-colors-apple2" autocomplete="off">
+                      <label class="btn btn-outline-danger" for="danger-outlined-colors-apple2">Red</label>
+                    </div>
     
-                    <div class="card-text" id="product-attribute color">Sizes:</div>
-                    <button type="button" class="btn border border-secondary my-1 mx-1">S</button>
-                    <button type="button" class="btn border border-secondary my-1 mx-1">M</button>
-                    <button type="button" class="btn border border-secondary my-1 mx-1">L</button>
+                    <!-- size choice -->
+                    <div class="mb-2" id="size-choice">
+                      <div class="card-text" id="product-attribute color">Sizes:</div>
+                      <input type="radio" class="btn-check" name="options-outlined-sizes-apple2" id="secondary1-outlined-sizes-apple2" autocomplete="off" checked>
+                      <label class="btn btn-outline-secondary" for="secondary1-outlined-sizes-apple2">S</label>
+                      
+                      <input type="radio" class="btn-check" name="options-outlined-sizes-apple2" id="secondary2-outlined-sizes-apple2" autocomplete="off">
+                      <label class="btn btn-outline-secondary" for="secondary2-outlined-sizes-apple2">M</label>
+  
+                      <input type="radio" class="btn-check" name="options-outlined-sizes-apple2" id="secondary3-outlined-sizes-apple2" autocomplete="off">
+                      <label class="btn btn-outline-secondary" for="secondary3-outlined-sizes-apple2">L</label>
+                    </div>
     
-                    <div class="card-text" id="product-attribute color">Quantity:</div>
-                    <button type="button" class="btn border m-1">+</button>
-                    <button type="button" class="btn border m-1">-</button>
-                    <button type="button" class="btn border border-secondary m-1">1</button>
-    
-                    <button type="button" class="btn btn-primary d-block mt-4 px-3">Buy</button>
+                    <!-- quantity -->
+                    <div class="mb-2" id="quantity-choice">
+                      <div class="card-text" id="product-attribute color">Quantity:</div>
+                      <button type="button" class="btn border m-1" id="quantity-up">+</button>
+                      <button type="button" class="btn border m-1" id="quantity-down">-</button>
+                      <span class="ms-2 badge bg-secondary" id="quantity-indicator">1</span>
+                    </div>
+                    
+                    <div>
+                      <button type="button" class="btn btn-primary mt-4 px-3">Buy</button>
+                      <button type="button" class="btn btn-secondary mt-4 px-3">Remove</button>
+                    </div>
+                  
                   </div>
-                </div>
-              </div>
+                </div> <!-- card -->
+              </div> <!-- col -->
+
+              <!-- product 3 - pear 1 -->
               <div class="col">
                 <div class="card shadow-sm">
-                  <img class="mx-auto" src="/images/apple.png" width="200" height="200">
+                  <a class="mx-auto" href="/product-pages/pear1.html">  
+                    <img src="/images/pear1.png" width="200" height="200">
+                  </a>
       
                   <div class="card-body">
+                    <h1 class="mb-4 display-6">Pear 1</h1>
                     <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
     
-                    <div class="card-text" id="product-attribute color">Colors:</div>
-                    <button type="button" class="btn bg-primary border border-secondary my-1 mx-1"></button>
-                    <button type="button" class="btn bg-danger border border-secondary my-1 mx-1"></button>
-                    <button type="button" class="btn bg-success border border-secondary my-1 mx-1"></button>
+                    <!-- colour choice -->
+                    <div class="mb-2" id="color-choice">
+                      <div class="card-text" id="product-attribute color">Colors:</div>
+                      <input type="radio" class="btn-check" name="options-outlined-colors-pear1" id="primary-outlined-colors-pear1" autocomplete="off" checked>
+                      <label class="btn btn-outline-primary" for="primary-outlined-colors-pear1">Blue</label>
+                                        
+                      <input type="radio" class="btn-check" name="options-outlined-colors-pear1" id="success-outlined-colors-pear1" autocomplete="off">
+                      <label class="btn btn-outline-success" for="success-outlined-colors-pear1">Green</label>
+
+                      <input type="radio" class="btn-check" name="options-outlined-colors-pear1" id="danger-outlined-colors-pear1" autocomplete="off">
+                      <label class="btn btn-outline-danger" for="danger-outlined-colors-pear1">Red</label>
+                    </div>
     
-                    <div class="card-text" id="product-attribute color">Sizes:</div>
-                    <button type="button" class="btn border border-secondary my-1 mx-1">S</button>
-                    <button type="button" class="btn border border-secondary my-1 mx-1">M</button>
-                    <button type="button" class="btn border border-secondary my-1 mx-1">L</button>
+                    <!-- size choice -->
+                    <div class="mb-2" id="size-choice">
+                      <div class="card-text" id="product-attribute color">Sizes:</div>
+                      <input type="radio" class="btn-check" name="options-outlined-sizes-pear1" id="secondary1-outlined-sizes-pear1" autocomplete="off" checked>
+                      <label class="btn btn-outline-secondary" for="secondary1-outlined-sizes-pear1">S</label>
+                      
+                      <input type="radio" class="btn-check" name="options-outlined-sizes-pear1" id="secondary2-outlined-sizes-pear1" autocomplete="off">
+                      <label class="btn btn-outline-secondary" for="secondary2-outlined-sizes-pear1">M</label>
+  
+                      <input type="radio" class="btn-check" name="options-outlined-sizes-pear1" id="secondary3-outlined-sizes-pear1" autocomplete="off">
+                      <label class="btn btn-outline-secondary" for="secondary3-outlined-sizes-pear1">L</label>
+                    </div>
     
-                    <div class="card-text" id="product-attribute color">Quantity:</div>
-                    <button type="button" class="btn border m-1">+</button>
-                    <button type="button" class="btn border m-1">-</button>
-                    <button type="button" class="btn border border-secondary m-1">1</button>
-    
-                    <button type="button" class="btn btn-primary d-block mt-4 px-3">Buy</button>
+                    <!-- quantity -->
+                    <div class="mb-2" id="quantity-choice">
+                      <div class="card-text" id="product-attribute color">Quantity:</div>
+                      <button type="button" class="btn border m-1" id="quantity-up">+</button>
+                      <button type="button" class="btn border m-1" id="quantity-down">-</button>
+                      <span class="ms-2 badge bg-secondary" id="quantity-indicator">1</span>
+                    </div>
+                    
+                    <div>
+                      <button type="button" class="btn btn-primary mt-4 px-3">Buy</button>
+                      <button type="button" class="btn btn-secondary mt-4 px-3">Remove</button>
+                    </div>
+                  
                   </div>
-                </div>
-              </div>
-      
+                </div> <!-- card -->
+              </div> <!-- col -->
+
+
+              <!-- product 4 - pear 2 -->
               <div class="col">
                 <div class="card shadow-sm">
-                  <img class="mx-auto" src="/images/apple.png" width="200" height="200">
+                  <a class="mx-auto" href="/product-pages/pear2.html">  
+                    <img src="/images/pear2.png" width="200" height="200">
+                  </a>
       
                   <div class="card-body">
+                    <h1 class="mb-4 display-6">Pear 2</h1>
                     <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
     
-                    <div class="card-text" id="product-attribute color">Colors:</div>
-                    <button type="button" class="btn bg-primary border border-secondary my-1 mx-1"></button>
-                    <button type="button" class="btn bg-danger border border-secondary my-1 mx-1"></button>
-                    <button type="button" class="btn bg-success border border-secondary my-1 mx-1"></button>
+                    <!-- colour choice -->
+                    <div class="mb-2" id="color-choice">
+                      <div class="card-text" id="product-attribute color">Colors:</div>
+                      <input type="radio" class="btn-check" name="options-outlined-colors-pear2" id="primary-outlined-colors-pear2" autocomplete="off" checked>
+                      <label class="btn btn-outline-primary" for="primary-outlined-colors-pear2">Blue</label>
+                                        
+                      <input type="radio" class="btn-check" name="options-outlined-colors-pear2" id="success-outlined-colors-pear2" autocomplete="off">
+                      <label class="btn btn-outline-success" for="success-outlined-colors-pear2">Green</label>
+
+                      <input type="radio" class="btn-check" name="options-outlined-colors-pear2" id="danger-outlined-colors-pear2" autocomplete="off">
+                      <label class="btn btn-outline-danger" for="danger-outlined-colors-pear2">Red</label>
+                    </div>
     
-                    <div class="card-text" id="product-attribute color">Sizes:</div>
-                    <button type="button" class="btn border border-secondary my-1 mx-1">S</button>
-                    <button type="button" class="btn border border-secondary my-1 mx-1">M</button>
-                    <button type="button" class="btn border border-secondary my-1 mx-1">L</button>
+                    <!-- size choice -->
+                    <div class="mb-2" id="size-choice">
+                      <div class="card-text" id="product-attribute color">Sizes:</div>
+                      <input type="radio" class="btn-check" name="options-outlined-sizes-pear2" id="secondary1-outlined-sizes-pear2" autocomplete="off" checked>
+                      <label class="btn btn-outline-secondary" for="secondary1-outlined-sizes-pear2">S</label>
+                      
+                      <input type="radio" class="btn-check" name="options-outlined-sizes-pear2" id="secondary2-outlined-sizes-pear2" autocomplete="off">
+                      <label class="btn btn-outline-secondary" for="secondary2-outlined-sizes-pear2">M</label>
+  
+                      <input type="radio" class="btn-check" name="options-outlined-sizes-pear2" id="secondary3-outlined-sizes-pear2" autocomplete="off">
+                      <label class="btn btn-outline-secondary" for="secondary3-outlined-sizes-pear2">L</label>
+                    </div>
     
-                    <div class="card-text" id="product-attribute color">Quantity:</div>
-                    <button type="button" class="btn border m-1">+</button>
-                    <button type="button" class="btn border m-1">-</button>
-                    <button type="button" class="btn border border-secondary m-1">1</button>
-    
-                    <button type="button" class="btn btn-primary d-block mt-4 px-3">Buy</button>
+                    <!-- quantity -->
+                    <div class="mb-2" id="quantity-choice">
+                      <div class="card-text" id="product-attribute color">Quantity:</div>
+                      <button type="button" class="btn border m-1" id="quantity-up">+</button>
+                      <button type="button" class="btn border m-1" id="quantity-down">-</button>
+                      <span class="ms-2 badge bg-secondary" id="quantity-indicator">1</span>
+                    </div>
+                    
+                    <div>
+                      <button type="button" class="btn btn-primary mt-4 px-3">Buy</button>
+                      <button type="button" class="btn btn-secondary mt-4 px-3">Remove</button>
+                    </div>
+                  
                   </div>
-                </div>
-              </div>
-            </div>
+                </div> <!-- card -->
+              </div> <!-- col -->
+
+
+              <!-- product 5 - orange 1 -->
+              <div class="col">
+                <div class="card shadow-sm">
+                  <a class="mx-auto" href="/product-pages/orange1.html">  
+                    <img src="/images/orange1.png" width="200" height="200">
+                  </a>
+      
+                  <div class="card-body">
+                    <h1 class="mb-4 display-6">Orange 1</h1>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+    
+                    <!-- colour choice -->
+                    <div class="mb-2" id="color-choice">
+                      <div class="card-text" id="product-attribute color">Colors:</div>
+                      <input type="radio" class="btn-check" name="options-outlined-colors-orange1" id="primary-outlined-colors-orange1" autocomplete="off" checked>
+                      <label class="btn btn-outline-primary" for="primary-outlined-colors-orange1">Blue</label>
+                                        
+                      <input type="radio" class="btn-check" name="options-outlined-colors-orange1" id="success-outlined-colors-orange1" autocomplete="off">
+                      <label class="btn btn-outline-success" for="success-outlined-colors-orange1">Green</label>
+
+                      <input type="radio" class="btn-check" name="options-outlined-colors-orange1" id="danger-outlined-colors-orange1" autocomplete="off">
+                      <label class="btn btn-outline-danger" for="danger-outlined-colors-orange1">Red</label>
+                    </div>
+    
+                    <!-- size choice -->
+                    <div class="mb-2" id="size-choice">
+                      <div class="card-text" id="product-attribute color">Sizes:</div>
+                      <input type="radio" class="btn-check" name="options-outlined-sizes-orange1" id="secondary1-outlined-sizes-orange1" autocomplete="off" checked>
+                      <label class="btn btn-outline-secondary" for="secondary1-outlined-sizes-orange1">S</label>
+                      
+                      <input type="radio" class="btn-check" name="options-outlined-sizes-orange1" id="secondary2-outlined-sizes-orange1" autocomplete="off">
+                      <label class="btn btn-outline-secondary" for="secondary2-outlined-sizes-orange1">M</label>
+  
+                      <input type="radio" class="btn-check" name="options-outlined-sizes-orange1" id="secondary3-outlined-sizes-orange1" autocomplete="off">
+                      <label class="btn btn-outline-secondary" for="secondary3-outlined-sizes-orange1">L</label>
+                    </div>
+    
+                    <!-- quantity -->
+                    <div class="mb-2" id="quantity-choice">
+                      <div class="card-text" id="product-attribute color">Quantity:</div>
+                      <button type="button" class="btn border m-1" id="quantity-up">+</button>
+                      <button type="button" class="btn border m-1" id="quantity-down">-</button>
+                      <span class="ms-2 badge bg-secondary" id="quantity-indicator">1</span>
+                    </div>
+                    
+                    <div>
+                      <button type="button" class="btn btn-primary mt-4 px-3">Buy</button>
+                      <button type="button" class="btn btn-secondary mt-4 px-3">Remove</button>
+                    </div>
+                  
+                  </div>
+                </div> <!-- card -->
+              </div> <!-- col -->
+
+
+              <!-- product 6 - orange 2 -->
+              <div class="col">
+                <div class="card shadow-sm">
+                  <a class="mx-auto" href="/product-pages/orange2.html">  
+                    <img src="/images/orange2.png" width="200" height="200">
+                  </a>
+      
+                  <div class="card-body">
+                    <h1 class="mb-4 display-6">Orange 2</h1>
+                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+    
+                    <!-- colour choice -->
+                    <div class="mb-2" id="color-choice">
+                      <div class="card-text" id="product-attribute color">Colors:</div>
+                      <input type="radio" class="btn-check" name="options-outlined-colors-orange2" id="primary-outlined-colors-orange2" autocomplete="off" checked>
+                      <label class="btn btn-outline-primary" for="primary-outlined-colors-orange2">Blue</label>
+                                        
+                      <input type="radio" class="btn-check" name="options-outlined-colors-orange2" id="success-outlined-colors-orange2" autocomplete="off">
+                      <label class="btn btn-outline-success" for="success-outlined-colors-orange2">Green</label>
+
+                      <input type="radio" class="btn-check" name="options-outlined-colors-orange2" id="danger-outlined-colors-orange2" autocomplete="off">
+                      <label class="btn btn-outline-danger" for="danger-outlined-colors-orange2">Red</label>
+                    </div>
+    
+                    <!-- size choice -->
+                    <div class="mb-2" id="size-choice">
+                      <div class="card-text" id="product-attribute color">Sizes:</div>
+                      <input type="radio" class="btn-check" name="options-outlined-sizes-orange2" id="secondary1-outlined-sizes-orange2" autocomplete="off" checked>
+                      <label class="btn btn-outline-secondary" for="secondary1-outlined-sizes-orange2">S</label>
+                      
+                      <input type="radio" class="btn-check" name="options-outlined-sizes-orange2" id="secondary2-outlined-sizes-orange2" autocomplete="off">
+                      <label class="btn btn-outline-secondary" for="secondary2-outlined-sizes-orange2">M</label>
+  
+                      <input type="radio" class="btn-check" name="options-outlined-sizes-orange2" id="secondary3-outlined-sizes-orange2" autocomplete="off">
+                      <label class="btn btn-outline-secondary" for="secondary3-outlined-sizes-orange2">L</label>
+                    </div>
+    
+                    <!-- quantity -->
+                    <div class="mb-2" id="quantity-choice">
+                      <div class="card-text" id="product-attribute color">Quantity:</div>
+                      <button type="button" class="btn border m-1" id="quantity-up">+</button>
+                      <button type="button" class="btn border m-1" id="quantity-down">-</button>
+                      <span class="ms-2 badge bg-secondary" id="quantity-indicator">1</span>
+                    </div>
+                    
+                    <div>
+                      <button type="button" class="btn btn-primary mt-4 px-3">Buy</button>
+                      <button type="button" class="btn btn-secondary mt-4 px-3">Remove</button>
+                    </div>
+                  
+                  </div>
+                </div> <!-- card -->
+              </div> <!-- col -->
+        
+
+            </div> <!-- row -->    
 
           </div> <!-- col 9 products -->
+
 
           <div class="col-3">
             <div class="p-2 text-center bg-light">Cart:</div>

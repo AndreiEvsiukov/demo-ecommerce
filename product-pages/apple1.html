@@ -4,7 +4,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+
+  <!-- bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+  <!-- my scripts -->
+  <script src="/js/script-product-cards.js" defer></script>
+  <script src="/js/script-shopping-cart.js" defer></script>
 </head>
 
 <body>
@@ -42,7 +48,7 @@
             <div class="row g-3 p-1">
     
               <div class="col-md-5 p-3">
-                <img class="mx-auto d-block" src="/images/apple.png" width="300">
+                <img class="mx-auto d-block" src="/images/apple1.png" width="300">
               </div>
     
               <div class="col-md-7">
@@ -63,9 +69,11 @@
                   <button type="button" class="btn border m-1">+</button>
                   <button type="button" class="btn border m-1">-</button>
                   <button type="button" class="btn border border-secondary m-1">1</button>
-    
-                  <button type="button" class="btn btn-primary mt-4 px-3">Buy</button>
-                  <button type="button" class="btn btn-primary mt-4 px-3">Buy</button>
+                  
+                  <div>
+                    <button type="button" class="btn btn-primary mt-4 px-3">Buy</button>
+                    <button type="button" class="btn btn-secondary mt-4 px-3">Remove</button>
+                  </div>
                 </div>
               </div> <!-- columns -->
     
