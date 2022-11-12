@@ -1,27 +1,94 @@
-import products from "./data/product-data.js";
+import defaultProducts from "./data/product-data.js";
 import productClass from "./data/product-class.js";
+
+
 
 
 // // // Helpers
 
 
-// Helper to find requierd array item or it's child
-// 
-// first param: identifier - attribute to find a required item (name)
-// one before last param (string): a string to identify needed array item attribute 
-// last param (boolean): true - array item, false - array item attribute  
+/* Helper to find requierd array item or it's child
 
-const findProductsArray = (arrayIdentifier, itemOrAttribute, arrayAttribute) => {
+first param: identifier - attribute to find a required item (name)
+one before last param (string): a string to identify needed array item attribute 
+last param (boolean): true - array item, false - array item attribute   */
+
+const finddefaultProductsArray = (arrayIdentifier, itemOrAttribute, arrayAttribute) => {
 
   if (itemOrAttribute) {
-    let item = products.find(e => e.name === arrayIdentifier);
+    let item = defaultProducts.find(e => e.name === arrayIdentifier);
     return item;
   } else {
-    let attribute = products.find(e => e.name === arrayIdentifier)[arrayAttribute];
+    let attribute = defaultProducts.find(e => e.name === arrayIdentifier)[arrayAttribute];
     return attribute;
   }
 
 };
+
+
+// Helper to clone requierd product array
+const cloneProduct = (product) => {
+  let clone = JSON.parse(JSON.stringify(product));
+  var productLayer 
+  return clone;
+}
+
+
+// helpers for whatTheProduct
+const checkForLayerProduct = (productIdentifier) => {
+  let result = false;
+
+  layerProducts.forEach(i => {
+    if (i.name === productIdentifier) {
+      result = true;
+    } 
+  });
+
+  return result;
+};
+
+const findLayerProduct = (productIdentifier) => {
+  let result = false;
+
+  layerProducts.forEach(i => {
+    if (i.name === productIdentifier) {
+      result = i;
+    } 
+  });
+
+  return result;
+};
+
+
+const findDefaultProduct = (productIdentifier) => {
+  let object;
+
+  switch (true) {
+    case productIdentifier === 'apple 1' :
+      object = finddefaultProductsArray('apple 1', 1); // try to change apple 1 - string to productIdentifier
+      break;
+    case productIdentifier === 'apple 2' :
+      object = finddefaultProductsArray('apple 2', 1);
+      break;
+    case productIdentifier === 'pear 1' :
+      object = finddefaultProductsArray('pear 1', 1);
+      break;
+    case productIdentifier === 'pear 2' :
+      object = finddefaultProductsArray('pear 2', 1);
+      break;
+    case productIdentifier === 'orange 1' :
+      object = finddefaultProductsArray('orange 1', 1);
+      break;
+    case productIdentifier === 'orange 2' :
+      object = finddefaultProductsArray('orange 2', 1);
+      break;
+    default:
+      console.log('match is not found');
+    }
+
+  return object;
+}
+
 
 
 // Helper to find requierd product array
@@ -29,28 +96,16 @@ const findProductsArray = (arrayIdentifier, itemOrAttribute, arrayAttribute) => 
 const whatTheProduct = (productIdentifier) => {
   let foundArray;
 
-   switch (true) {
-    case productIdentifier === 'apple 1' :
-      foundArray = findProductsArray('apple 1', 1);
-      break;
-    case productIdentifier === 'apple 2' :
-      foundArray = findProductsArray('apple 2', 1);
-      break;
-    case productIdentifier === 'pear 1' :
-      foundArray = findProductsArray('pear 1', 1);
-      break;
-    case productIdentifier === 'pear 2' :
-      foundArray = findProductsArray('pear 2', 1);
-      break;
-    case productIdentifier === 'orange 1' :
-      foundArray = findProductsArray('orange 1', 1);
-      break;
-    case productIdentifier === 'orange 2' :
-      foundArray = findProductsArray('orange 2', 1);
-      break;
-    default:
-      console.log('match is not found');
-   };
+  // check if the product is already in the layerProducts
+  if (typeof layerProducts !== 'undefined') {
+    if (checkForLayerProduct(productIdentifier)) {
+      foundArray = findLayerProduct(productIdentifier);
+    } else {
+      foundArray = findDefaultProduct(productIdentifier);
+    }
+  else {
+    foundArray = findDefaultProduct(productIdentifier);
+  }
 
   return foundArray;
 };
@@ -90,23 +145,28 @@ const findCangeCoefficient = (buttonValue) => {
 // callback to change color in a product's array
 function changeColor (button) {
 
-  // looking for correct product in the product array
+  // looking for correct product form defaultProducts or layerProducts
   let cardBody = button.parentElement.parentElement;
   let productIdentifier = cardBody.querySelector('h1').innerText.toLowerCase();
+
+  // you need to take 
   let product = whatTheProduct(productIdentifier);
 
-  // record previous value, make change, populate storage, remove change
-  let defaultColor = product.color;
 
   let buttonValue = button.innerText.toLowerCase();
+  if (typeof layerProducts !== 'undefined') {
+    // funct to either push product to layerProducts or update existing item 
+  } else {
+    // funct to create layerProducts and then previous func
+  }
+
   product.color = buttonValue;
 
-  let productJsn = JSON.stringify(product);
-  localStorage.setItem(productIdentifier, productJsn);
+  // let newProduct = new productClass(product.name, product.color, product)
 
-  product.color = defaultColor;
+  // product.color = defaultColor;
 
-  console.log(localStorage);
+  // console.log(localStorage);
 }
 
 // color choice event istener
@@ -154,7 +214,7 @@ function changeSize (button) {
   product.size = defaultSize;
   product.price = defaultPrice;
   
-  console.log(products);
+  console.log(defaultProducts);
   console.log(localStorage);
 }
 
@@ -186,7 +246,7 @@ function addOne (button) {
   let quantityIndicator = button.parentElement.querySelector('span');
   quantityIndicator.innerText = product.quantity;
 
-  console.log(products);
+  console.log(defaultProducts);
 }
 
 function removeOne (button) {
@@ -202,7 +262,7 @@ function removeOne (button) {
     quantityIndicator.innerText = product.quantity;
   };
 
-  console.log(products);
+  console.log(defaultProducts);
 }
 
 
