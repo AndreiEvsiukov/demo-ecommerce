@@ -13,7 +13,7 @@ first param: identifier - attribute to find a required item (name)
 one before last param (string): a string to identify needed array item attribute 
 last param (boolean): true - array item, false - array item attribute   */
 
-const finddefaultProductsArray = (arrayIdentifier, itemOrAttribute, arrayAttribute) => {
+const findDefaultProductsArray = (arrayIdentifier, itemOrAttribute, arrayAttribute) => {
 
   if (itemOrAttribute) {
     let item = defaultProducts.find(e => e.name === arrayIdentifier);
@@ -26,61 +26,27 @@ const finddefaultProductsArray = (arrayIdentifier, itemOrAttribute, arrayAttribu
 };
 
 
-// Helper to clone requierd product array
-const cloneProduct = (product) => {
-  let clone = JSON.parse(JSON.stringify(product));
-  var productLayer 
-  return clone;
-}
-
-
-// helpers for whatTheProduct
-const checkForLayerProduct = (productIdentifier) => {
-  let result = false;
-
-  layerProducts.forEach(i => {
-    if (i.name === productIdentifier) {
-      result = true;
-    } 
-  });
-
-  return result;
-};
-
-const findLayerProduct = (productIdentifier) => {
-  let result = false;
-
-  layerProducts.forEach(i => {
-    if (i.name === productIdentifier) {
-      result = i;
-    } 
-  });
-
-  return result;
-};
-
-
 const findDefaultProduct = (productIdentifier) => {
   let object;
 
   switch (true) {
     case productIdentifier === 'apple 1' :
-      object = finddefaultProductsArray('apple 1', 1); // try to change apple 1 - string to productIdentifier
+      object = findDefaultProductsArray(productIdentifier, 1); // try to change apple 1 - string to productIdentifier
       break;
     case productIdentifier === 'apple 2' :
-      object = finddefaultProductsArray('apple 2', 1);
+      object = findDefaultProductsArray(productIdentifier, 1);
       break;
     case productIdentifier === 'pear 1' :
-      object = finddefaultProductsArray('pear 1', 1);
+      object = findDefaultProductsArray(productIdentifier, 1);
       break;
     case productIdentifier === 'pear 2' :
-      object = finddefaultProductsArray('pear 2', 1);
+      object = findDefaultProductsArray(productIdentifier, 1);
       break;
     case productIdentifier === 'orange 1' :
-      object = finddefaultProductsArray('orange 1', 1);
+      object = findDefaultProductsArray(productIdentifier, 1);
       break;
     case productIdentifier === 'orange 2' :
-      object = finddefaultProductsArray('orange 2', 1);
+      object = findDefaultProductsArray(productIdentifier, 1);
       break;
     default:
       console.log('match is not found');
@@ -88,27 +54,6 @@ const findDefaultProduct = (productIdentifier) => {
 
   return object;
 }
-
-
-
-// Helper to find requierd product array
-
-const whatTheProduct = (productIdentifier) => {
-  let foundArray;
-
-  // check if the product is already in the layerProducts
-  if (typeof layerProducts !== 'undefined') {
-    if (checkForLayerProduct(productIdentifier)) {
-      foundArray = findLayerProduct(productIdentifier);
-    } else {
-      foundArray = findDefaultProduct(productIdentifier);
-    }
-  else {
-    foundArray = findDefaultProduct(productIdentifier);
-  }
-
-  return foundArray;
-};
 
 
 // Helper to increase price for size and quantity
@@ -135,6 +80,71 @@ const findCangeCoefficient = (buttonValue) => {
 
 
 
+// Product layer
+const initiateLayerProducts = (product) => {
+  window.layerProducts = [];;
+  layerProducts.push(JSON.parse(JSON.stringify(product)));
+}
+
+const checkForLayerProduct = (productIdentifier) => {
+  let result = false;
+
+  layerProducts.forEach(i => {
+    if (i.name === productIdentifier) {
+      result = true;
+    } 
+  });
+
+  return result;
+};
+
+const findLayerProduct = (productIdentifier) => {
+  let result = false;
+
+  layerProducts.forEach(i => {
+    if (i.name === productIdentifier) {
+      result = i;
+    } 
+  });
+
+  return result;
+};
+
+const pushLayerProducts = (product, productIdentifier) => {
+  if (checkForLayerProduct(productIdentifier)) {
+    let index = layerProducts.findIndex(i => i.name === productIdentifier);
+    layerProducts[index] = JSON.parse(JSON.stringify(product));
+  }
+  else {
+    layerProducts.push(JSON.parse(JSON.stringify(product)));
+  }
+};
+
+
+
+// Helper to find requierd product array
+
+const whatTheProduct = (productIdentifier) => {
+  let foundArray;
+
+  // check if the product is already in the layerProducts
+  if (typeof layerProducts !== 'undefined') {
+    if (checkForLayerProduct(productIdentifier)) {
+      foundArray = findLayerProduct(productIdentifier);
+    }
+    else {
+      foundArray = findDefaultProduct(productIdentifier);
+    }
+  }
+  else {
+    foundArray = findDefaultProduct(productIdentifier);
+  }
+
+  return foundArray;
+};
+
+
+
 
 
 // // // // // Event listeners - product cards functionality
@@ -149,24 +159,33 @@ function changeColor (button) {
   let cardBody = button.parentElement.parentElement;
   let productIdentifier = cardBody.querySelector('h1').innerText.toLowerCase();
 
-  // you need to take 
+  // find product either from defaultProducts (if 1st time button is clicked), or from layerProducts (not 1st time) 
   let product = whatTheProduct(productIdentifier);
 
-
+  // make the change based on conditions
   let buttonValue = button.innerText.toLowerCase();
-  if (typeof layerProducts !== 'undefined') {
-    // funct to either push product to layerProducts or update existing item 
-  } else {
-    // funct to create layerProducts and then previous func
+
+  if (product instanceof productClass) {            // if product is from defaultProducts:
+    let defaultValue = product.color;
+
+    if (typeof layerProducts !== 'undefined') {     // if layerProducts exists -> change value -> psuh to layerProducts -> change back 
+      product.color = buttonValue;
+      pushLayerProducts(product, productIdentifier);
+      product.color = defaultValue;
+    }
+    else {
+    product.color = buttonValue;                   // if doesn't -> change value -> initiate layer and push to it -> change back 
+    initiateLayerProducts(product);
+    product.color = defaultValue;
+    }
+  }
+  else {                                           // if product from layerProducts: 
+    product.color = buttonValue;                   // just change value 
   }
 
-  product.color = buttonValue;
-
-  // let newProduct = new productClass(product.name, product.color, product)
-
-  // product.color = defaultColor;
-
-  // console.log(localStorage);
+  // for debug
+  console.log(layerProducts);
+  console.log(defaultProducts);
 }
 
 // color choice event istener

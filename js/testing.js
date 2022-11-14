@@ -1,3 +1,6 @@
+import defaultProducts from "./data/product-data.js";
+import productClass from "./data/product-class.js";
+
 
 // TESTING DEEP CLONING 
 // import productsDefault from "./data/product-data.js";
@@ -33,71 +36,33 @@
 
 // TESTING RETURNING ARRAY 
 
-const apple1 = {
-  name: 'apple 1',
-  color: 'blue',
-  size: 's',
-  quantity: 1,
-  price: 20
-};
+// const apple1 = {
+//   name: 'apple 1',
+//   color: 'blue',
+//   size: 's',
+//   quantity: 1,
+//   price: 20
+// };
 
-const apple2 = {
-  name: 'apple 2',
-  color: 'blue',
-  size: 's',
-  quantity: 1,
-  price: 35
-};
+// const apple2 = {
+//   name: 'apple 2',
+//   color: 'blue',
+//   size: 's',
+//   quantity: 1,
+//   price: 35
+// };
 
-var layerProducts = [apple1, apple2];
-
-
-const productIdentifier = 'apple 2';
+// var layerProducts = [apple1, apple2];
 
 
-const finddefaultProductsArray = (arrayIdentifier, itemOrAttribute, arrayAttribute) => {
-
-  if (itemOrAttribute) {
-    let item = layerProducts.find(e => e.name === arrayIdentifier);
-    return item;
-  } else {
-    let attribute = layerProducts.find(e => e.name === arrayIdentifier)[arrayAttribute];
-    return attribute;
-  }
-
-};
-
-const findDefaultProduct = (productIdentifier) => {
-  let object;
-
-  switch (true) {
-    case productIdentifier === 'apple 1' :
-      object = finddefaultProductsArray('apple 1', 1); // try to change apple 1 - string to productIdentifier
-      break;
-    case productIdentifier === 'apple 2' :
-      object = finddefaultProductsArray('apple 2', 1);
-      break;
-    case productIdentifier === 'pear 1' :
-      object = finddefaultProductsArray('pear 1', 1);
-      break;
-    case productIdentifier === 'pear 2' :
-      object = finddefaultProductsArray('pear 2', 1);
-      break;
-    case productIdentifier === 'orange 1' :
-      object = finddefaultProductsArray('orange 1', 1);
-      break;
-    case productIdentifier === 'orange 2' :
-      object = finddefaultProductsArray('orange 2', 1);
-      break;
-    default:
-      console.log('match is not found');
-    }
-
-  return object;
-}
+// const productIdentifier = 'pear 1';
 
 
-console.log(findDefaultProduct(productIdentifier));
+// let product = defaultProducts[3];
+
+
+// console.log(defaultProducts);
+// console.log(layerProducts);
 
 
 
