@@ -3,10 +3,6 @@ import productClass from "./data/product-class.js";
 
 
 
-
-// // // Helpers
-
-
 /* Helper to find requierd array item or it's child
 
 first param: identifier - attribute to find a required item (name)
@@ -25,7 +21,7 @@ const findDefaultProductsArray = (arrayIdentifier, itemOrAttribute, arrayAttribu
 
 };
 
-
+// helper for finding default product in defaultProducs array 
 const findDefaultProduct = (productIdentifier) => {
   let object;
 
@@ -56,7 +52,7 @@ const findDefaultProduct = (productIdentifier) => {
 }
 
 
-// Helper to increase price for size and quantity
+// helper to increase price according to size
 
 const findCangeCoefficient = (buttonValue) => {
   let coefficientNumber;
@@ -80,7 +76,8 @@ const findCangeCoefficient = (buttonValue) => {
 
 
 
-// Product layer
+// Helpers for window.layerProducts 
+
 const initiateLayerProducts = (product) => {
   window.layerProducts = [];;
   layerProducts.push(JSON.parse(JSON.stringify(product)));
@@ -122,49 +119,46 @@ const pushLayerProducts = (product, productIdentifier) => {
 
 
 
-// Helper to find requierd product array
+// Helper to find requierd product either in defaultProducts or layerProducts
 
 const whatTheProduct = (productIdentifier) => {
-  let foundArray;
+  let object;
 
-  // check if the product is already in the layerProducts
-  if (typeof layerProducts !== 'undefined') {
-    if (checkForLayerProduct(productIdentifier)) {
-      foundArray = findLayerProduct(productIdentifier);
+  if (typeof layerProducts !== 'undefined') {                   // if layerProduct exists:
+    if (checkForLayerProduct(productIdentifier)) {                // if this product is present in layerProducts: 
+      object = findLayerProduct(productIdentifier);               // take the product from layerProducts
     }
-    else {
-      foundArray = findDefaultProduct(productIdentifier);
+    else {                                                        // if this product is not present in layerProducts: 
+      object = findDefaultProduct(productIdentifier);             // take the product from default
     }
   }
-  else {
-    foundArray = findDefaultProduct(productIdentifier);
+  else {                                                        // if layerProduct doesn't exists:
+    object = findDefaultProduct(productIdentifier);               // take the product from default
   }
 
-  return foundArray;
+  return object;
 };
 
 
 
 
-
-// // // // // Event listeners - product cards functionality
-
-
 // // // Color choice functionality
 
-// callback to change color in a product's array
+// callback to change color in window.layerProducts 
 function changeColor (button) {
 
-  // looking for correct product form defaultProducts or layerProducts
+  // identify product from html
   let cardBody = button.parentElement.parentElement;
   let productIdentifier = cardBody.querySelector('h1').innerText.toLowerCase();
 
   // find product either from defaultProducts (if 1st time button is clicked), or from layerProducts (not 1st time) 
   let product = whatTheProduct(productIdentifier);
 
-  // make the change based on conditions
+  
+  // variables to make changes
   let buttonValue = button.innerText.toLowerCase();
 
+  // make data changes
   if (product instanceof productClass) {            // if product is from defaultProducts:
     let defaultValue = product.color;
 
@@ -182,6 +176,7 @@ function changeColor (button) {
   else {                                           // if product from layerProducts: 
     product.color = buttonValue;                   // just change value 
   }
+
 
   // for debug
   console.log(layerProducts);
@@ -205,39 +200,52 @@ colorButtons.forEach((button) => {
 // callback to change size in a product's array
 function changeSize (button) {
   
-  // looking for correct product in the product array
+  // identify product from html
   let cardBody = button.parentElement.parentElement;
   let productIdentifier = cardBody.querySelector('h1').innerText.toLowerCase();
+
+  // find product either from defaultProducts (if 1st time button is clicked), or from layerProducts (not 1st time) 
   let product = whatTheProduct(productIdentifier);
 
-  // record default values
-  let defaultSize = product.size;
-  let defaultPrice = product.price;
 
-  // make change to size
+  // variables to make changes 
   let buttonValue = button.innerText.toLowerCase();
-  product.size = buttonValue;
-
-  // make change to price 
   let coefficientNumber = findCangeCoefficient(buttonValue);
-  product.price *= coefficientNumber;
-
   let priceElement = cardBody.querySelector('#price-text');
-  priceElement.innerText = product.price.toFixed(2);
 
-  // write changes to storage
-  let productJsn = JSON.stringify(product);
-  localStorage.setItem(productIdentifier, productJsn);
+  // make data changes (and one html change)
+  if (product instanceof productClass) {            // if product is from defaultProducts:
+    let defaultSize = product.size;
+    let defaultPrice = product.price;
 
-  // back to default values
-  product.size = defaultSize;
-  product.price = defaultPrice;
-  
+    if (typeof layerProducts !== 'undefined') {     // if layerProducts exists -> change value + html -> psuh to layerProducts -> change back 
+      product.size = buttonValue;
+      product.price *= coefficientNumber;
+      priceElement.innerText = product.price.toFixed(2);
+      pushLayerProducts(product, productIdentifier);
+      product.size = defaultSize;
+      product.price = defaultPrice;
+    }
+    else {                                         // if layerProducts doesn't exists -> change value + html -> initiate layer and push to it -> change back 
+      product.size = buttonValue;
+      product.price *= coefficientNumber;
+      priceElement.innerText = product.price.toFixed(2);
+      initiateLayerProducts(product);
+      product.size = defaultSize;
+      product.price = defaultPrice;
+    }
+  }
+  else {                                           // if product from layerProducts -> change values + html
+    product.size = buttonValue;
+    let defaultPrice = findDefaultProduct(productIdentifier).price;
+    product.price = defaultPrice * coefficientNumber;
+    priceElement.innerText = product.price.toFixed(2);
+  }
+
+  // for debug
+  console.log(layerProducts);
   console.log(defaultProducts);
-  console.log(localStorage);
 }
-
-
 
 // size choice event istener
 const sizeButtons = document.querySelectorAll('#size-choice label');
@@ -255,32 +263,83 @@ sizeButtons.forEach((button) => {
 
 // callbacks to change quantity in a product's array 
 function addOne (button) {
+
+  // identify product from html
   let cardBody = button.parentElement.parentElement;
   let productIdentifier = cardBody.querySelector('h1').innerText.toLowerCase();
 
+  // find product either from defaultProducts (if 1st time button is clicked), or from layerProducts (not 1st time) 
   let product = whatTheProduct(productIdentifier);
 
-  ++product.quantity
 
+  // variables to make changes
   let quantityIndicator = button.parentElement.querySelector('span');
-  quantityIndicator.innerText = product.quantity;
 
+  // make data + html changes
+  if (product instanceof productClass) {            // if product is from defaultProducts:
+    let defaultValue = product.quantity;
+
+    if (typeof layerProducts !== 'undefined') {     // if layerProducts exists -> change value + html -> psuh to layerProducts -> change back 
+      ++product.quantity;
+      quantityIndicator.innerText = product.quantity;
+      pushLayerProducts(product, productIdentifier);
+      product.quantity = defaultValue;
+    }
+    else {
+    ++product.quantity;                            // if doesn't -> change value + html -> initiate layer and push to it -> change back 
+    quantityIndicator.innerText = product.quantity;
+    initiateLayerProducts(product);
+    product.quantity = defaultValue;
+    }
+  }
+  else {                                           // if product from layerProducts -> change value + html 
+    ++product.quantity;
+    quantityIndicator.innerText = product.quantity;
+  }
+
+  // for debug
+  console.log(layerProducts);
   console.log(defaultProducts);
 }
 
+
+
 function removeOne (button) {
+  // identify product from html
   let cardBody = button.parentElement.parentElement;
   let productIdentifier = cardBody.querySelector('h1').innerText.toLowerCase();
 
+  // find product either from defaultProducts (if 1st time button is clicked), or from layerProducts (not 1st time) 
   let product = whatTheProduct(productIdentifier);
-  
-  if (product.quantity > 0) {
+
+
+  // variables to make changes
+  let quantityIndicator = button.parentElement.querySelector('span');
+
+  // make data + html changes
+  if (product instanceof productClass && product.quantity > 0) {    // if product is from defaultProducts and preventing from being negative:
+    let defaultValue = product.quantity;
+
+    if (typeof layerProducts !== 'undefined') {     // if layerProducts exists -> change value + html -> psuh to layerProducts -> change back 
+      --product.quantity;
+      quantityIndicator.innerText = product.quantity;
+      pushLayerProducts(product, productIdentifier);
+      product.quantity = defaultValue;
+    }
+    else {                                         // if doesn't -> change value + html -> initiate layer and push to it -> change back 
+      --product.quantity;
+      quantityIndicator.innerText = product.quantity;
+      initiateLayerProducts(product);
+      product.quantity = defaultValue;
+    }
+  }
+  else if (!product instanceof productClass && product.quantity > 0) {     // if product from layerProducts and preventing from being negative -> change value + html 
     --product.quantity;
-
-    let quantityIndicator = button.parentElement.querySelector('span');
     quantityIndicator.innerText = product.quantity;
-  };
+  }
 
+  // for debug
+  console.log(layerProducts);
   console.log(defaultProducts);
 }
 
@@ -303,3 +362,68 @@ removeOneButtons.forEach((button) => {
   });
 });
 
+
+
+
+
+// // // (de)populate cart functionality
+
+// callBacks for add to card callback
+
+const displayCart = () => {
+  let tbody = document.querySelector('#cart tbody');
+
+  // FOR ANDI: it should remove attributes until your total!!!
+  while (tbody.firstChild) {
+    tbody.removeChild(tbody.firstChild);
+  }
+
+  for (let i = 0; i < localStorage.length; i++) {
+    let key = localStorage.key(i);
+    let item = JSON.parse(localStorage.getItem(key));
+
+    let tr = document.createElement('tr');
+    let tdName = document.createElement('td');
+    let tdQuantity = document.createElement('td');
+    let tdPrice = document.createElement('td');
+
+    tdName.innerText = item.name;
+    tdQuantity.innerText = item.quantity;
+    tdPrice.innerText = `${(item.quantity * item.price).toFixed(2)} €`;
+
+    tr.append(tdName, tdQuantity, tdPrice);
+    tbody.append(tr);
+  }
+};
+
+
+const addLocalStorage = (productIdentifier, product) => {
+  localStorage.setItem(productIdentifier, JSON.stringify(product));
+}
+
+// add to cart callBack
+const addToCart = (button) => {
+  // identify product from html
+  let cardBody = button.parentElement.parentElement;
+  let productIdentifier = cardBody.querySelector('h1').innerText.toLowerCase();
+
+  // find product either from defaultProducts (if 1st time button is clicked), or from layerProducts (not 1st time) 
+  let product = whatTheProduct(productIdentifier);
+
+  addLocalStorage(productIdentifier, product);
+
+  displayCart()
+
+  console.log(localStorage);
+}
+
+
+// add to cart event istener
+
+const buyButtons = document.querySelectorAll('#cart-actions-product #buy-product');
+
+buyButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    addToCart(button);
+  });
+});

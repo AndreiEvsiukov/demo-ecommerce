@@ -105,10 +105,10 @@
                       <span class="card-text" id="price-currency">€</span>
                     </div>
 
-
-                    <div>
-                      <button type="button" class="btn btn-primary mt-4 px-3">Buy</button>
-                      <button type="button" class="btn btn-secondary mt-4 px-3">Remove</button>
+                    <!-- buy / remove -->
+                    <div id="cart-actions-product">
+                      <button type="button" class="btn btn-primary mt-4 px-3" id="buy-product">Buy</button>
+                      <button type="button" class="btn btn-secondary mt-4 px-3" id="remove-product">Remove</button>
                     </div>
                   
                   </div>
@@ -168,10 +168,10 @@
                       <span class="card-text" id="price-currency">€</span>
                     </div>
 
-                    
-                    <div>
-                      <button type="button" class="btn btn-primary mt-4 px-3">Buy</button>
-                      <button type="button" class="btn btn-secondary mt-4 px-3">Remove</button>
+                    <!-- buy / remove -->
+                    <div id="cart-actions-product">
+                      <button type="button" class="btn btn-primary mt-4 px-3" id="buy-product">Buy</button>
+                      <button type="button" class="btn btn-secondary mt-4 px-3" id="remove-product">Remove</button>
                     </div>
                   
                   </div>
@@ -230,10 +230,10 @@
                       <span class="card-text" id="price-currency">€</span>
                     </div>
 
-
-                    <div>
-                      <button type="button" class="btn btn-primary mt-4 px-3">Buy</button>
-                      <button type="button" class="btn btn-secondary mt-4 px-3">Remove</button>
+                    <!-- buy / remove -->
+                    <div id="cart-actions-product">
+                      <button type="button" class="btn btn-primary mt-4 px-3" id="buy-product">Buy</button>
+                      <button type="button" class="btn btn-secondary mt-4 px-3" id="remove-product">Remove</button>
                     </div>
                   
                   </div>
@@ -293,9 +293,10 @@
                       <span class="card-text" id="price-currency">€</span>
                     </div>
                     
-                    <div>
-                      <button type="button" class="btn btn-primary mt-4 px-3">Buy</button>
-                      <button type="button" class="btn btn-secondary mt-4 px-3">Remove</button>
+                    <!-- buy / remove -->
+                    <div id="cart-actions-product">
+                      <button type="button" class="btn btn-primary mt-4 px-3" id="buy-product">Buy</button>
+                      <button type="button" class="btn btn-secondary mt-4 px-3" id="remove-product">Remove</button>
                     </div>
                   
                   </div>
@@ -354,10 +355,11 @@
                       <span class="card-text" id="price-text">19.00</span>
                       <span class="card-text" id="price-currency">€</span>
                     </div>
-                    
-                    <div>
-                      <button type="button" class="btn btn-primary mt-4 px-3">Buy</button>
-                      <button type="button" class="btn btn-secondary mt-4 px-3">Remove</button>
+
+                    <!-- buy / remove -->
+                    <div id="cart-actions-product">
+                      <button type="button" class="btn btn-primary mt-4 px-3" id="buy-product">Buy</button>
+                      <button type="button" class="btn btn-secondary mt-4 px-3" id="remove-product">Remove</button>
                     </div>
                   
                   </div>
@@ -417,9 +419,10 @@
                       <span class="card-text" id="price-currency">€</span>
                     </div>
                     
-                    <div>
-                      <button type="button" class="btn btn-primary mt-4 px-3">Buy</button>
-                      <button type="button" class="btn btn-secondary mt-4 px-3">Remove</button>
+                    <!-- buy / remove -->
+                    <div id="cart-actions-product">
+                      <button type="button" class="btn btn-primary mt-4 px-3" id="buy-product">Buy</button>
+                      <button type="button" class="btn btn-secondary mt-4 px-3" id="remove-product">Remove</button>
                     </div>
                   
                   </div>
@@ -432,7 +435,7 @@
           </div> <!-- col 9 products -->
 
 
-          <div class="col-3">
+          <div class="col-3" id="cart">
             <div class="p-2 text-center bg-light">Cart:</div>
             
             <table class="table table-bordered">
@@ -443,13 +446,15 @@
               </thead>
 
               <tbody>
-                <!-- <tr>
-                  <td>Apple 1</td>
-                  <td>4</td>
-                  <td>$50</td>
-                </tr> -->
-
                 <tr>
+                  <th>Total</th>
+                  <td colspan="2" class="table-active"></td>
+                </tr>
+                <tr>
+                  <th>Total</th>
+                  <td colspan="2" class="table-active"></td>
+                </tr>
+                <tr id="table-total">
                   <th>Total</th>
                   <td colspan="2" class="table-active"></td>
                 </tr>

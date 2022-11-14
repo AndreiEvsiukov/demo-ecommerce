@@ -2,6 +2,13 @@ import defaultProducts from "./data/product-data.js";
 import productClass from "./data/product-class.js";
 
 
+
+let tbody = document.querySelector('#cart tbody');
+
+// while (!tbody.firstElementChild.hasAttribute('id')) {
+//   console.log(tbody.firstChild);
+// }
+
 // TESTING DEEP CLONING 
 // import productsDefault from "./data/product-data.js";
 
