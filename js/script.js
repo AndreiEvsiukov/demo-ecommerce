@@ -317,25 +317,30 @@ function removeOne (button) {
   let quantityIndicator = button.parentElement.querySelector('span');
 
   // make data + html changes
-  if (product instanceof productClass && product.quantity > 0) {    // if product is from defaultProducts and preventing from being negative:
+  if (product.quantity > 0) {                         // preventing from being negative
     let defaultValue = product.quantity;
 
-    if (typeof layerProducts !== 'undefined') {     // if layerProducts exists -> change value + html -> psuh to layerProducts -> change back 
+    if (product instanceof productClass) {            // if product is from defaultProducts:
+      if (typeof layerProducts !== 'undefined') {     // if layerProducts exists -> change value + html -> psuh to layerProducts -> change back 
+        --product.quantity;
+        quantityIndicator.innerText = product.quantity;
+        pushLayerProducts(product, productIdentifier);
+        product.quantity = defaultValue;
+        console.log('1st script');
+      }
+      else {                                         // if layerProducts doesn't exist -> change value + html -> initiate layer and push to it -> change back 
+        --product.quantity;
+        quantityIndicator.innerText = product.quantity;
+        initiateLayerProducts(product);
+        product.quantity = defaultValue;
+        console.log('2nd script');
+      }
+    }
+    else {                                           // if product is from layerProducts -> change value    
       --product.quantity;
       quantityIndicator.innerText = product.quantity;
-      pushLayerProducts(product, productIdentifier);
-      product.quantity = defaultValue;
+      console.log('3d script');
     }
-    else {                                         // if doesn't -> change value + html -> initiate layer and push to it -> change back 
-      --product.quantity;
-      quantityIndicator.innerText = product.quantity;
-      initiateLayerProducts(product);
-      product.quantity = defaultValue;
-    }
-  }
-  else if (!product instanceof productClass && product.quantity > 0) {     // if product from layerProducts and preventing from being negative -> change value + html 
-    --product.quantity;
-    quantityIndicator.innerText = product.quantity;
   }
 
   // for debug
@@ -371,12 +376,14 @@ removeOneButtons.forEach((button) => {
 // callBacks for add to card callback
 
 const displayCart = () => {
+
   let tbody = document.querySelector('#cart tbody');
 
-  // FOR ANDI: it should remove attributes until your total!!!
-  while (tbody.firstChild) {
+  while (tbody.firstChild) {                             // clear cart
     tbody.removeChild(tbody.firstChild);
   }
+
+  const totalPriceArr = [];                              // for calculating total price
 
   for (let i = 0; i < localStorage.length; i++) {
     let key = localStorage.key(i);
@@ -392,14 +399,54 @@ const displayCart = () => {
     tdPrice.innerText = `${(item.quantity * item.price).toFixed(2)} €`;
 
     tr.append(tdName, tdQuantity, tdPrice);
-    tbody.append(tr);
+    tbody.append(tr);                                    // finished displaying one product type 
+
+    totalPriceArr.push(item.price * item.quantity);      // for calculating total price 
   }
+
+  
+  let totalPrice;                                        // calculating total price 
+  if (totalPriceArr.length > 0) {
+    totalPrice = totalPriceArr.reduce(
+      (sum, previousValue) => sum += previousValue
+    );
+  } else {
+    totalPrice = 0;
+  }
+
+  let trTotal = document.createElement('tr');            // displaying total
+  let thTotal = document.createElement('th');
+  let tdTotal = document.createElement('td');
+
+  trTotal.append(thTotal, tdTotal);
+
+  trTotal.setAttribute('id', 'table-total');
+  tdTotal.setAttribute('colspan', 2);
+  tdTotal.classList.add('table-active');
+
+  thTotal.innerText = 'Total';
+  tdTotal.innerText = `${totalPrice.toFixed(2)} €`;
+
+  tbody.append(trTotal);
 };
 
 
 const addLocalStorage = (productIdentifier, product) => {
   localStorage.setItem(productIdentifier, JSON.stringify(product));
-}
+};
+
+const removeLocalStorage = (productIdentifier) => {
+  if (localStorage.length > 0) {
+    localStorage.removeItem(productIdentifier);
+  };
+};
+
+const clearLocalStorage = () => {
+  for (let i = 0; i < localStorage.length;) {
+    let key = localStorage.key(i);
+    localStorage.removeItem(key);
+  }
+};
 
 // add to cart callBack
 const addToCart = (button) => {
@@ -412,18 +459,66 @@ const addToCart = (button) => {
 
   addLocalStorage(productIdentifier, product);
 
-  displayCart()
+  displayCart();
 
   console.log(localStorage);
 }
 
 
-// add to cart event istener
+// remove from cart callBack
+const removeFromCart = (button) => {
+  if (localStorage.length > 0) {              // run if only the storage has already been populated
 
-const buyButtons = document.querySelectorAll('#cart-actions-product #buy-product');
+    let cardBody = button.parentElement.parentElement;
+    let productIdentifier = cardBody.querySelector('h1').innerText.toLowerCase();
 
-buyButtons.forEach((button) => {
+    removeLocalStorage(productIdentifier);
+
+    displayCart();
+
+    console.log(localStorage);
+  }
+}
+
+
+// add to || remove from cart event isteners
+
+const addToCartButtons = document.querySelectorAll('#cart-actions-product #add-to-cart');
+
+addToCartButtons.forEach((button) => {
   button.addEventListener('click', () => {
     addToCart(button);
   });
 });
+
+const removeFromCartButtons = document.querySelectorAll('#cart-actions-product #remove-from-cart');
+
+removeFromCartButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    removeFromCart(button);
+  });
+});
+
+
+
+
+
+// // // cart functionality
+
+// callback
+const clearCart = () => {
+  clearLocalStorage();
+
+  displayCart();
+};
+
+// event listener
+
+const clearCartButton = document.querySelector('#cart-buttons #clear-cart');
+
+clearCartButton.addEventListener('click', clearCart);
+
+// // //  default functions that should be run 
+
+// to update cart from page to page and display default 'total 0' 
+displayCart();
