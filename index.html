@@ -26,15 +26,28 @@
     
       <div class="row">
     
-        <div class="col-6">
+        <div class="col-6 pb-2">
           <h1 class="fw-light">Demo store</h1>
-          <p>
-            <a class="btn btn-primary my-2" href="/index.html">Home</a>
-            <a href="/special-offers.html" class="btn btn-secondary my-2">Special offers</a>
-            <a href="/blog.html" class="btn btn-secondary my-2">Blog</a>
-            <a href="/feedback.html" class="btn btn-secondary my-2">Feedback</a>
-          </p>
-        </div>
+
+          <a class="btn btn-primary my-2" href="/index.html">Home</a>
+          <div class="btn-group d-inline">
+            <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              Products
+            </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/product-pages/apple1.html">Apple 1</a></li>
+              <li><a class="dropdown-item" href="/product-pages/apple2.html">Apple 2</a></li>
+              <li><a class="dropdown-item" href="/product-pages/pear1.html">Pear 1</a></li>
+              <li><a class="dropdown-item" href="/product-pages/pear2.html">Pear 2</a></li>
+              <li><a class="dropdown-item" href="/product-pages/orange1.html">Orange 1</a></li>
+              <li><a class="dropdown-item" href="/product-pages/orange2.html">Orange 2</a></li>
+            </ul>
+          </div>
+          <a href="/special-offers.html" class="btn btn-secondary my-2">Special offers</a>
+          <a href="/blog.html" class="btn btn-secondary my-2">Blog</a>
+          <a href="/feedback.html" class="btn btn-secondary my-2">Feedback</a>
+
+        </div> <!-- col 6 -->
 
       </div> <!-- row -->
     
@@ -111,7 +124,7 @@
                       <button type="button" class="btn btn-secondary mt-4 px-3" id="remove-from-cart">Remove</button>
                     </div>
                   
-                  </div>
+                  </div> <!-- card body -->
                 </div> <!-- card -->
               </div> <!-- col -->
 
