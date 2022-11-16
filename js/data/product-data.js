@@ -1,5 +1,19 @@
-import productClass from "./product-class.js";
-
+/* Set a product class */
+class productClass{
+  constructor(
+    name,
+    color,
+    size,
+    quantity,
+    price
+  ) {
+    this.name = name;
+    this.color = color;
+    this.size = size;
+    this.quantity = quantity;
+    this.price = price;
+  }
+}
 
 /* set up default product arrays */
 const apple1 = new productClass(
@@ -52,4 +66,5 @@ const orange2 = new productClass(
 
 const defaultProducts = [apple1, apple2, pear1, pear2, orange1, orange2];
 
-export default defaultProducts;
+
+export  { productClass, defaultProducts }; 
