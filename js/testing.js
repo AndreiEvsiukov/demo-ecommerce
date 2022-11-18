@@ -1,4 +1,4 @@
-import { productClass, defaultProducts } from "./data/product-data.js";
+import { productClass, defaultProducts } from "./product-data.js";
 
 
 

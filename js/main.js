@@ -1,4 +1,4 @@
-import { productClass, defaultProducts } from "./data/product-data.js";
+import { productClass, defaultProducts } from "./product-data.js";
 
 /* Helper to find requierd array item or it's child
 
@@ -511,8 +511,9 @@ const clearCart = () => {
 
 const clearCartButton = document.querySelector('#cart-buttons #clear-cart');
 
-clearCartButton.addEventListener('click', clearCart);
-
+if (!clearCartButton === null) {
+  clearCartButton.addEventListener('click', clearCart);
+}
 
 
 
@@ -520,3 +521,6 @@ clearCartButton.addEventListener('click', clearCart);
 
 // to update cart from page to page and display default 'total 0' 
 displayCart();
+
+
+export {removeLocalStorage, clearLocalStorage}; 
