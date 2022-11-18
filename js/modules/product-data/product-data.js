@@ -67,4 +67,4 @@ const orange2 = new productClass(
 const defaultProducts = [apple1, apple2, pear1, pear2, orange1, orange2];
 
 
-export  { productClass, defaultProducts }; 
+export {productClass, defaultProducts};

@@ -1,8 +1,6 @@
-import { productClass, defaultProducts } from "./product-data.js";
 
 
 
-let tbody = document.querySelector('#cart tbody');
 
 // while (!tbody.firstElementChild.hasAttribute('id')) {
 //   console.log(tbody.firstChild);
