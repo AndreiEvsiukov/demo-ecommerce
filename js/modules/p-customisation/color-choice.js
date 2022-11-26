@@ -10,7 +10,7 @@ import {initiateLayerProducts, pushLayerProducts, whatTheProduct} from '../p-car
 function changeColor (button) {
 
   // identify product from html
-  let productIdentifier = button.closest('.card-body').firstElementChild.innerText.toLowerCase();
+  let productIdentifier = button.querySelector('.card-body').firstElementChild.innerText.toLowerCase();
 
 
   // find product either from defaultProducts (if 1st time button is clicked), or from layerProducts (not 1st time) 

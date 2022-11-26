@@ -1,5 +1,35 @@
 
+// class btns{
+//   constructor(
+//     dataToChange,
+//     bootColors
+//     ) {
+//     this.properties = {
+//       data: [...dataToChange],
+//       bootColors: [...bootColors]
+//     }
+//   }
+// }
 
+// const btnsColor = new btns(
+//   ['blue', 'green', 'red'],
+//   ['primary', 'success', 'danger']
+// );
+
+// const btnsSize = new btns(
+//   ['s', 'm', 'l'],
+//   ['secondary']
+// );
+
+// const btnsQuantity = new btns(
+//   [1, -1],
+//   ['secondary']
+// );
+
+
+// console.log(btnsColor);
+// console.log(btnsSize);
+// console.log(btnsQuantity);
 
 
 // while (!tbody.firstElementChild.hasAttribute('id')) {
