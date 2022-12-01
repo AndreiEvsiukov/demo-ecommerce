@@ -1,4 +1,4 @@
-// local storage functions 
+/* // local storage functions 
 
 const addLocalStorage = (productIdentifier, product) => {
   localStorage.setItem(productIdentifier, JSON.stringify(product));
@@ -18,4 +18,4 @@ const clearLocalStorage = () => {
 };
 
 
-export {addLocalStorage, removeLocalStorage, clearLocalStorage};
+export {addLocalStorage, removeLocalStorage, clearLocalStorage}; */
