@@ -1,4 +1,4 @@
-import {productClass, defaultProducts} from "../product-data/product-data.js";
+/* import {productClass, defaultProducts} from "../product-data/product-data.js";
 
 
 import { initiateLayerProducts, pushLayerProducts, whatTheProduct} from '../p-cards-helpers.js';
@@ -94,4 +94,4 @@ function removeOne (button) {
 }
 
 
-export {addOne, removeOne};
+export {addOne, removeOne}; */

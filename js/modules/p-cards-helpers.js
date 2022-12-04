@@ -1,4 +1,4 @@
-import {defaultProducts} from "./product-data/product-data.js";
+/* import {defaultProducts} from "./product-data/product-data.js";
 
 
 // helper for finding default product in defaultProducs array 
@@ -120,4 +120,4 @@ const whatTheProduct = (productIdentifier) => {
 };
 
 
-export { findDefaultProduct, findCangeCoefficient, initiateLayerProducts, checkForLayerProduct, findLayerProduct , pushLayerProducts, whatTheProduct };
+export { findDefaultProduct, findCangeCoefficient, initiateLayerProducts, checkForLayerProduct, findLayerProduct , pushLayerProducts, whatTheProduct }; */

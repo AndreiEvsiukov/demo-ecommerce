@@ -1,4 +1,4 @@
-import displayCart from './modules/checkout/cart-extended.js';
+/* import displayCart from './modules/checkout/cart-extended.js';
 
 import {clearLocalStorage} from './modules/local-storage.js';
 
@@ -58,3 +58,4 @@ form.addEventListener('submit', event => {
   form.classList.add('was-validated');
   }, false);
 
+ */

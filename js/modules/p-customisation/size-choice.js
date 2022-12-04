@@ -1,4 +1,4 @@
-import {productClass, defaultProducts} from "../product-data/product-data.js";
+/* import {productClass, defaultProducts} from "../product-data/product-data.js";
 
 import { findDefaultProduct, findCangeCoefficient, initiateLayerProducts, pushLayerProducts, whatTheProduct } from '../p-cards-helpers.js';
 
@@ -56,4 +56,4 @@ function changeSize (button) {
 }
 
 
-export default changeSize;
+export default changeSize; */

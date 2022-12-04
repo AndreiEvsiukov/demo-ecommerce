@@ -1,8 +1,8 @@
-import { whatTheProduct } from './p-cards-helpers.js';
+/* import { whatTheProduct } from './p-cards-helpers.js';
 
 import {addLocalStorage, removeLocalStorage, clearLocalStorage} from './local-storage.js';
 
-import displayCart from './cart-simple.js';
+// import displayCart from './cart-simple.js';
 
 
 // add to cart callBack
@@ -45,4 +45,4 @@ const clearCart = () => {
 
 
 
-export {addToCart, removeFromCart, clearCart};
+// export {addToCart, removeFromCart, clearCart}; */

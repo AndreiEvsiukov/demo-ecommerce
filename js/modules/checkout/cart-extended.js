@@ -1,4 +1,3 @@
-import {removeLocalStorage} from '../local-storage.js';
 
 // // // displaying cart
 
@@ -90,7 +89,3 @@ function removeFromCheckout(button) {
   displayCart();
 }
 
-
-
-
-export default displayCart;
