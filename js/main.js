@@ -8,22 +8,35 @@ const clearLocalStorage = () => {
   }
 };
 
-clearLocalStorage();
+// clearLocalStorage();
 
+
+// find row to append cols
+
+const rowEl = document.querySelector('main .row');
 
 // display products
-const cardtEl = document.querySelector('#card-container');
+
+const col9El = document.createElement('div');
+col9El.classList.add('col-9')
+
+const productsRowEl = document.createElement('div');
+productsRowEl.classList.add('row', 'row-cols-md-1', 'row-cols-lg-2', 'row-cols-xl-3', 'g-3');
+
+col9El.append(productsRowEl);
+
+// const productsRowEl = col9El.querySelector('#card-container');
 
 productsArr.forEach((product) => {
   
   product.render(product.id);
 
-  cardtEl.append(product.$container);
+  productsRowEl.append(product.$container);
 });
 
+rowEl.append(col9El);
 
 // display cart
-const rowEl = document.querySelector('main .row');
 
 rowEl.append(cart.$containerSimple);
 

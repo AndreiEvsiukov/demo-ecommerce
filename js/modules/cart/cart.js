@@ -1,3 +1,6 @@
+import {addLocalStorage, removeLocalStorage, clearLocalStorage} from '../local-storage.js';
+
+
 // const clearLocalStorage = () => {
 //   for (let i = 0; i < localStorage.length;) {
 //     let key = localStorage.key(i);
@@ -111,7 +114,12 @@ class Cart {
   
       let deleteBtnEl = rowEl.querySelector('button');
       deleteBtnEl.addEventListener('click', () => {
-        console.log('deleteBtnEl clicked');
+
+        // delete from local storage
+        removeLocalStorage(itemSimple.name.replace(' ', '').toLowerCase());
+
+        // update cart data and rows
+        this.updateCart();
       });
 
       this.$tableBodySimple.append(rowEl);
@@ -128,6 +136,14 @@ class Cart {
     // populate with html
     this.$containerSimple.innerHTML = this.createHtmlSimple();
     this.$tableBodySimple = this.$containerSimple.querySelector('tbody');
+
+    // clear cart button functionality
+    let buttonEl = this.$containerSimple.querySelector('#clear-cart');
+    buttonEl.addEventListener('click', () => {
+      clearLocalStorage();
+
+      this.updateCart();
+    })
 
     this.renderRowsSimple();
   }
@@ -150,19 +166,21 @@ function populateCart() {
 
   let productsArr = [];
 
-  for (let i = 0; i < localStorage.length; i++) {
-    let key = localStorage.key(i);
-    let storageItem =JSON.parse(localStorage.getItem(key));
-    let item = {
-      id: storageItem.id,
-      name: storageItem.name,
-      color: storageItem.color,
-      size: storageItem.size,
-      quantity: storageItem.quantity,
-      price: storageItem.price
-    }
+  if (localStorage.length > 0) {
+    for (let i = 0; i < localStorage.length; i++) {
+      let key = localStorage.key(i);
+      let storageItem =JSON.parse(localStorage.getItem(key));
+      let item = {
+        id: storageItem.id,
+        name: storageItem.name,
+        color: storageItem.color,
+        size: storageItem.size,
+        quantity: storageItem.quantity,
+        price: storageItem.price
+      }
 
-    productsArr.push(item);
+      productsArr.push(item);
+    }
   }
 
   return productsArr;

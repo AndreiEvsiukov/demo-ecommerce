@@ -23,13 +23,26 @@ const addLocalStorage = (productId, params) => {
 };
 
 const removeLocalStorage = (productId) => {
+
+  // if exists
   if (localStorage.length > 0) {
-    localStorage.removeItem(productId);
-  };
+
+    // define a pattern
+    let re = new RegExp(`${productId}`);
+
+    // loop through all items and delete all matches
+    for (let i = localStorage.length; i--;) {
+      let key = localStorage.key(i);
+
+      if (re.test(key)) {
+        localStorage.removeItem(key);
+      }
+    }
+  }
 };
 
 const clearLocalStorage = () => {
-  for (let i = 0; i < localStorage.length;) {
+  for (let i = localStorage.length; i--;) {
     let key = localStorage.key(i);
     localStorage.removeItem(key);
   }
