@@ -93,6 +93,9 @@ class Cart {
 
 }
 
+function test() {
+  console.log('test');
+}
 
 function populateCart() {
 
