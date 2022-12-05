@@ -117,4 +117,8 @@ function populateCart() {
 }
 
 
-export {Cart, populateCart};
+const cart = new Cart(populateCart());
+cart.renderSimpleCart();
+
+
+export {cart};

@@ -1,5 +1,5 @@
 import { productsArr } from './modules/product/product-data.js';
-import { Cart, populateCart } from './modules/cart/cart.js';
+import { cart } from './modules/cart/cart.js';
 
 const clearLocalStorage = () => {
   for (let i = 0; i < localStorage.length;) {
@@ -24,9 +24,6 @@ productsArr.forEach((product) => {
 
 // display cart
 const rowEl = document.querySelector('main .row');
-
-const cart = new Cart(populateCart());
-cart.renderSimpleCart();
 
 rowEl.append(cart.$containerSimple);
 
