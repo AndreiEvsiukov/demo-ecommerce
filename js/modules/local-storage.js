@@ -1,12 +1,30 @@
-/* // local storage functions 
+// local storage functions 
+import {cart} from './cart/cart.js';
 
-const addLocalStorage = (productIdentifier, product) => {
-  localStorage.setItem(productIdentifier, JSON.stringify(product));
+const addLocalStorage = (productId, params) => {
+
+  // if item doesn't exist already - just add
+  if (!localStorage.getItem(productId)) {
+    localStorage.setItem(productId, params);
+
+  // if exists - make updates to the item to push - and then add
+  } else {
+    let storageItem = JSON.parse(localStorage.getItem(productId));
+    let itemToAdd = JSON.parse(params);
+
+    storageItem.quantity += itemToAdd.quantity;
+    storageItem.price += itemToAdd.price;
+
+    localStorage.setItem(productId, JSON.stringify(storageItem));
+  }
+
+  // update cart (data and page html)
+  cart.updateCart();
 };
 
-const removeLocalStorage = (productIdentifier) => {
+const removeLocalStorage = (productId) => {
   if (localStorage.length > 0) {
-    localStorage.removeItem(productIdentifier);
+    localStorage.removeItem(productId);
   };
 };
 
@@ -18,4 +36,4 @@ const clearLocalStorage = () => {
 };
 
 
-export {addLocalStorage, removeLocalStorage, clearLocalStorage}; */
+export {addLocalStorage, removeLocalStorage, clearLocalStorage};

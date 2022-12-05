@@ -1,3 +1,13 @@
+// const clearLocalStorage = () => {
+//   for (let i = 0; i < localStorage.length;) {
+//     let key = localStorage.key(i);
+//     localStorage.removeItem(key);
+//   }
+// };
+
+// clearLocalStorage();
+
+
 
 class Cart {
   constructor(items) {
@@ -12,6 +22,28 @@ class Cart {
     this.$containerSimples;
     this.$tableBodySimple;
 
+  }
+
+  // add items 
+  populateCart() {
+
+    for (let i = 0; i < localStorage.length; i++) {
+      let key = localStorage.key(i);
+      let storageItem = JSON.parse(localStorage.getItem(key));
+      let item = {
+        id: storageItem.id,
+        name: storageItem.name,
+        color: storageItem.color,
+        size: storageItem.size,
+        quantity: storageItem.quantity,
+        price: storageItem.price
+      }
+  
+      this.items.push(item);
+    }
+
+    console.log(this.items);
+  
   }
 
 
@@ -43,15 +75,13 @@ class Cart {
     <td><button class="btn-close" aria-label="Close"></button></td>`;
   }
 
-  renderSimpleCart () {
-    // make container
-    this.$containerSimple = document.createElement('div');
-    this.$containerSimple.classList.add('col-3');
-    this.$containerSimple.setAttribute('id', 'cart');
+  renderRowsSimple () {
 
-    // populate with html
-    this.$containerSimple.innerHTML = this.createHtmlSimple();
-    
+    // clear cart
+    while (this.$tableBodySimple.firstChild) {
+      this.$tableBodySimple.removeChild(this.$tableBodySimple.firstChild);
+    }
+
     // prepare a new array from items for displaying
     this.itemsSimple = this.items.reduce( (accumulator, currentItem) => {
       if (accumulator.length == 0) {
@@ -73,8 +103,7 @@ class Cart {
     },[] );
 
 
-    // find el for append, make rows, append
-    this.$tableBodySimple = this.$containerSimple.querySelector('tbody');
+    // Make rows out of itemsSimple, append
 
     this.itemsSimple.forEach((itemSimple) => {
       let rowEl = document.createElement('tr');
@@ -88,14 +117,34 @@ class Cart {
       this.$tableBodySimple.append(rowEl);
     });
 
-    console.log(this.$tableBodySimple);
+  }
+
+  renderSimple () {
+    // make container
+    this.$containerSimple = document.createElement('div');
+    this.$containerSimple.classList.add('col-3');
+    this.$containerSimple.setAttribute('id', 'cart');
+
+    // populate with html
+    this.$containerSimple.innerHTML = this.createHtmlSimple();
+    this.$tableBodySimple = this.$containerSimple.querySelector('tbody');
+
+    this.renderRowsSimple();
+  }
+
+
+  updateCart () {
+    this.items = [];
+
+    // update items from local storage
+    this.populateCart();
+
+    // re-render tdoby
+    this.renderRowsSimple();
   }
 
 }
 
-function test() {
-  console.log('test');
-}
 
 function populateCart() {
 
@@ -120,8 +169,9 @@ function populateCart() {
 }
 
 
-const cart = new Cart(populateCart());
-cart.renderSimpleCart();
+const cart = new Cart([]);
+cart.populateCart();
+cart.renderSimple();
 
 
 export {cart};

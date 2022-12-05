@@ -1,3 +1,4 @@
+import {addLocalStorage, removeLocalStorage, clearLocalStorage} from '../local-storage.js';
 
 /* Btns for Product*/
 
@@ -177,7 +178,7 @@ class Product{
 
     this.$addToCart = tempEl.querySelector('#add-to-cart');
     this.$addToCart.addEventListener('click', () => {
-      this.addLocalStorage();
+      this.addToCart();
     });
 
 
@@ -339,16 +340,19 @@ class Product{
 
 
   // add to cart
-  addLocalStorage () {
+  addToCart () {
 
-    localStorage.setItem(`${this.id}-${this.color}-${this.size}`, JSON.stringify({
+    let productId = `${this.id}-${this.color}-${this.size}`;
+    let params = JSON.stringify({
       id: this.id,
       name: this.name,
       color: this.color,
       size: this.size,
       quantity: this.quantity,
       price: this.priceToPay ? (this.priceToPay) : (this.price),
-    }));
+    });
+
+    addLocalStorage(productId, params);
 
     this.clearSelection();
 

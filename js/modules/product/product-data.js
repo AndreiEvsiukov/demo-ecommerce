@@ -17,7 +17,7 @@ const apple1 = new Product(
 const apple2 = new Product(
   'apple2',
   'Apple 2',
-  'red',
+  'blue',
   's',
   1,
   35,

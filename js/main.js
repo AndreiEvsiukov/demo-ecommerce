@@ -8,7 +8,7 @@ const clearLocalStorage = () => {
   }
 };
 
-// clearLocalStorage();s
+clearLocalStorage();
 
 
 // display products
