@@ -1,11 +1,11 @@
-import {addLocalStorage, removeLocalStorage, clearLocalStorage} from '../local-storage.js';
+import {addLocalStorage} from '../local-storage.js';
 
 /* Btns for Product*/
 
 const buttonsColor = {
   id: 'color',
   data: ['blue', 'green', 'red'],
-  text: ['Skyish', 'Eco-friendly', 'Nasty'],
+  text: ['Skyish', 'Eco', 'Nasty'],
   bootColors: ['primary', 'success', 'danger']
 };
 
@@ -70,10 +70,7 @@ class Product{
 
 
     // view properties (order like html)
-    this.$container; 
-
-    this.$imgLinkStr;
-    this.$imgStr;
+    this.$imgContainer;
 
     this.$heading;
 
@@ -155,14 +152,11 @@ class Product{
   // create product card here 
   render(productId) {
 
-/*     // high level html container
-    let containerEl = document.createElement('div');
-    containerEl.innerHTML = this.createHtml(); */
-
 
     // render img
-    this.$imgLinkStr = `<a class="mx-auto" href="/product-pages/${this.id}.html">`;
-    this.$imgStr = `<img src=${this.imageHref} width="200" height="200">`;
+    this.$imgContainer = document.createElement('div');
+    this.$imgContainer.innerHTML = `<a class="mx-auto" href="/product-pages/${this.id}.html"></a>
+    <img src=${this.imageHref} width="200" height="200">`;
 
 
     // render heading
@@ -198,6 +192,13 @@ class Product{
       this.$colorBtns.append(btnEl);
     });
 
+    // color heading
+    const colorHeading = document.createElement('div');
+    colorHeading.classList.add(`Card-text-${productId}`);
+    colorHeading.innerText = 'Colors:';
+    this.$colorBtns.prepend(colorHeading);
+
+
 
 
     // render size buttons and add functionality
@@ -224,6 +225,13 @@ class Product{
 
       this.$sizeBtns.append(btnEl);
     });
+
+    // size heading
+    const sizeHeading = document.createElement('div');
+    sizeHeading.classList.add(`Card-text-${productId}`);
+    sizeHeading.innerText = 'Sizes:';
+    this.$sizeBtns.prepend(sizeHeading);
+
 
 
     // render quantity buttons and add functionality
@@ -262,13 +270,21 @@ class Product{
 
     this.$quantityBtns.append(quantityEl);
 
+    // quantity heading 
+    const quantityHeading = document.createElement('div');
+    quantityHeading.classList.add(`Card-text-${productId}`);
+    quantityHeading.innerText = 'Quantity:';
+    this.$quantityBtns.prepend(quantityHeading);
+
+
+
 
     // find price elem and add it to view
     this.$price = document.createElement('div');
     this.$price.classList.add('mb-4');
     this.$price.setAttribute('id', `product-price-${productId}`);
 
-    this.$price.innerHTML = `<div class="card-text">Price</div>
+    this.$price.innerHTML = `<div class="card-text">Price:</div>
     <span class="card-text price-text" id="price-text-${productId}">${this.price.toFixed(2)}</span>
     <span class="card-text price-currency" id="price-currency-${productId}">€</span>`;
 
@@ -293,12 +309,8 @@ class Product{
     });
 
 
-
-/*     // add all html created above to view
-    this.$container = containerEl.childNodes[0]; */
-
-
   }
+
 
   // Methods to change data 
   
