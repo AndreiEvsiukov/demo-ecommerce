@@ -79,8 +79,8 @@ class Product{
     this.sizeBtns;
     this.$quantityBtns;
 
-    this.$addToCart
-    this.$clearChoice
+    this.$addToCart;
+    this.$clearChoice;
   }
 
 
@@ -159,24 +159,24 @@ class Product{
   render(productId) {
 
     // high level html container
-    let tempEl = document.createElement('div');
-    tempEl.innerHTML = this.createHtml();
+    let containerEl = document.createElement('div');
+    containerEl.innerHTML = this.createHtml();
 
 
     // find price elem and add it to view
-    this.$price = tempEl.querySelector('#price-text');
+    this.$price = containerEl.querySelector('#price-text');
     
     // find quantity element and add to view
-    this.$quantity = tempEl.querySelector('#quantity-text');
+    this.$quantity = containerEl.querySelector('#quantity-text');
 
     // find addToCart and clearChoice buttons and add functionality
-    this.$clearChoice = tempEl.querySelector('#clear-choice');
+    this.$clearChoice = containerEl.querySelector('#clear-choice');
     this.$clearChoice.addEventListener('click', () => {
       this.clearSelection();
     })
 
 
-    this.$addToCart = tempEl.querySelector('#add-to-cart');
+    this.$addToCart = containerEl.querySelector('#add-to-cart');
     this.$addToCart.addEventListener('click', () => {
       this.addToCart();
     });
@@ -184,7 +184,7 @@ class Product{
 
 
     // render color buttons and add functionality
-    this.$colorBtns = tempEl.querySelector('#color-choice');
+    this.$colorBtns = containerEl.querySelector('#color-choice');
 
     this.btns.color.data.forEach((data, i) => {
 
@@ -209,7 +209,7 @@ class Product{
 
 
     // render size buttons and add functionality
-    this.$sizeBtns = tempEl.querySelector('#size-choice');
+    this.$sizeBtns = containerEl.querySelector('#size-choice');
 
     this.btns.size.data.forEach((data, i) => {
 
@@ -233,7 +233,7 @@ class Product{
 
 
     // render quantity buttons and add functionality
-    this.$quantityBtns = tempEl.querySelector('#quantity-choice');
+    this.$quantityBtns = containerEl.querySelector('#quantity-choice');
 
     this.btns.quantity.data.forEach((data, i) => {
 
@@ -257,7 +257,7 @@ class Product{
 
 
     // add all html created above to view
-    this.$container = tempEl.childNodes[0];
+    this.$container = containerEl.childNodes[0];
 
   }
 
