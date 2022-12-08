@@ -69,16 +69,24 @@ class Product{
     }
 
 
-    // view properties
+    // view properties (order like html)
     this.$container; 
 
-    this.$quantity;
-    this.$price;
+    this.$imgLinkStr;
+    this.$imgStr;
+
+    this.$heading;
 
     this.$colorBtns;
-    this.sizeBtns;
-    this.$quantityBtns;
+    this.$sizeBtns;
 
+    this.$quantityBtns;
+    this.$quantityText;
+
+    this.$price;
+    this.$priceText;
+
+    this.$cartActionBtns;
     this.$addToCart;
     this.$clearChoice;
   }
@@ -96,9 +104,6 @@ class Product{
         <h1 class="mb-4 display-6">${this.name}</h1>
         <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
 
-        <!-- buttons -->
-        <div id='buttons-contianer'></div>
-  
         <!-- colour choice -->
         <div class='mb-3' id='color-choice'></div>
   
@@ -109,14 +114,6 @@ class Product{
         <div class='mb-3' id='quantity-choice'>
 
         <span class="ms-2 badge bg-secondary" id="quantity-text">${this.quantity}</span>
-        </div>
-  
-  
-        <!-- price -->
-        <div class="mb-1" id="product-price">
-          <div class="card-text">Price</div>
-          <span class="card-text" id="price-text">${this.price.toFixed(2)}</span>
-          <span class="card-text" id="price-currency">€</span>
         </div>
   
         <!-- add to card / clear -->
@@ -148,7 +145,7 @@ class Product{
     
     // for quantity
     else {
-      h = `<input type="button" class="btn border m-1" name="${id}-${data ? ('up') : ('down')}-${productId}" id="${id}-${data ? ('up') : ('down')}" value="${text}">`
+      h = `<input type="button" class="btn border mt-1 me-2 mb-1" name="${id}-${data ? ('up') : ('down')}-${productId}" id="${id}-${data ? ('up') : ('down')}-${productId}" value="${text}">`
     }
 
     return h;
@@ -158,33 +155,28 @@ class Product{
   // create product card here 
   render(productId) {
 
-    // high level html container
+/*     // high level html container
     let containerEl = document.createElement('div');
-    containerEl.innerHTML = this.createHtml();
+    containerEl.innerHTML = this.createHtml(); */
 
 
-    // find price elem and add it to view
-    this.$price = containerEl.querySelector('#price-text');
-    
-    // find quantity element and add to view
-    this.$quantity = containerEl.querySelector('#quantity-text');
-
-    // find addToCart and clearChoice buttons and add functionality
-    this.$clearChoice = containerEl.querySelector('#clear-choice');
-    this.$clearChoice.addEventListener('click', () => {
-      this.clearSelection();
-    })
+    // render img
+    this.$imgLinkStr = `<a class="mx-auto" href="/product-pages/${this.id}.html">`;
+    this.$imgStr = `<img src=${this.imageHref} width="200" height="200">`;
 
 
-    this.$addToCart = containerEl.querySelector('#add-to-cart');
-    this.$addToCart.addEventListener('click', () => {
-      this.addToCart();
-    });
-
+    // render heading
+    this.$heading = document.createElement('div');
+    this.$heading.classList.add('mb-4');
+    this.$heading.setAttribute('id', `heading-${productId}`);
+    this.$heading.innerHTML = `<h1 class="mb-3 display-6">${this.name}</h1>
+    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>`;
 
 
     // render color buttons and add functionality
-    this.$colorBtns = containerEl.querySelector('#color-choice');
+    this.$colorBtns = document.createElement('div');
+    this.$colorBtns.classList.add('mb-3');
+    this.$colorBtns.setAttribute('id', `color-choice-${productId}`);
 
     this.btns.color.data.forEach((data, i) => {
 
@@ -209,7 +201,9 @@ class Product{
 
 
     // render size buttons and add functionality
-    this.$sizeBtns = containerEl.querySelector('#size-choice');
+    this.$sizeBtns = document.createElement('div');
+    this.$sizeBtns.classList.add('mb-3');
+    this.$sizeBtns.setAttribute('id', `size-choice-${productId}`);
 
     this.btns.size.data.forEach((data, i) => {
 
@@ -233,8 +227,10 @@ class Product{
 
 
     // render quantity buttons and add functionality
-    this.$quantityBtns = containerEl.querySelector('#quantity-choice');
-
+    this.$quantityBtns = document.createElement('div');
+    this.$quantityBtns.classList.add('mb-3');
+    this.$quantityBtns.setAttribute('id', `quantity-choice-${productId}`);
+    
     this.btns.quantity.data.forEach((data, i) => {
 
       let btnEl = document.createElement('span');
@@ -255,9 +251,52 @@ class Product{
       this.$quantityBtns.prepend(btnEl);
     });
 
+    
+    let quantityEl = document.createElement('span');
+    quantityEl.classList.add('ms-1', 'badge', 'bg-secondary');
+    quantityEl.setAttribute('id', `quantity-text-${productId}`);
+    quantityEl.innerText = this.quantity;
 
-    // add all html created above to view
-    this.$container = containerEl.childNodes[0];
+    // add quantity text to view for later functiions
+    this.$quantityText = quantityEl;
+
+    this.$quantityBtns.append(quantityEl);
+
+
+    // find price elem and add it to view
+    this.$price = document.createElement('div');
+    this.$price.classList.add('mb-4');
+    this.$price.setAttribute('id', `product-price-${productId}`);
+
+    this.$price.innerHTML = `<div class="card-text">Price</div>
+    <span class="card-text price-text" id="price-text-${productId}">${this.price.toFixed(2)}</span>
+    <span class="card-text price-currency" id="price-currency-${productId}">€</span>`;
+
+    this.$priceText = this.$price.querySelector(`#price-text-${productId}`);
+
+
+    // find addToCart and clearChoice buttons and add functionality
+    this.$cartActionBtns = document.createElement('div');
+    this.$cartActionBtns.classList.add('mb-2');
+    this.$cartActionBtns.setAttribute('id', `card-actions-${productId}`);
+    this.$cartActionBtns.innerHTML = `<button type="button" class="btn btn-primary me-2 px-3" id="add-to-cart-${productId}">Add to cart</button>
+    <button type="button" class="btn btn-light px-3" id="clear-choice-${productId}">Clear selection</button>`;
+
+    this.$clearChoice = this.$cartActionBtns.querySelector(`#clear-choice-${productId}`);
+    this.$clearChoice.addEventListener('click', () => {
+      this.clearSelection();
+    })
+
+    this.$addToCart = this.$cartActionBtns.querySelector(`#add-to-cart-${productId}`);
+    this.$addToCart.addEventListener('click', () => {
+      this.addToCart();
+    });
+
+
+
+/*     // add all html created above to view
+    this.$container = containerEl.childNodes[0]; */
+
 
   }
 
@@ -266,7 +305,7 @@ class Product{
   // used in methods below  
   calculatePrice () {
     this.priceToPay = this.price * this.sizeCoef[this.size] * this.quantity;
-    this.$price.innerText = this.priceToPay.toFixed(2);
+    this.$priceText.innerText = this.priceToPay.toFixed(2);
 
   }
 
@@ -294,7 +333,7 @@ class Product{
       ++this.quantity;
       this.calculatePrice();
 
-      this.$quantity.innerText = this.quantity;
+      this.$quantityText.innerText = this.quantity;
 
       console.log(this);
 
@@ -303,7 +342,7 @@ class Product{
         --this.quantity;
         this.calculatePrice();
 
-        this.$quantity.innerText = this.quantity;
+        this.$quantityText.innerText = this.quantity;
 
         console.log(this);
       }
@@ -333,7 +372,7 @@ class Product{
     this.quantity = 1,
 
     // show default quantity, default price
-    this.$quantity.innerText = this.quantity;
+    this.$quantityText.innerText = this.quantity;
     this.calculatePrice();
 
   }

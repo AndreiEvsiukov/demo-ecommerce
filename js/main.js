@@ -1,46 +1,78 @@
 import { productsArr } from './modules/product/product-data.js';
 import { cart } from './modules/cart/cart.js';
 
-const clearLocalStorage = () => {
-  for (let i = 0; i < localStorage.length;) {
-    let key = localStorage.key(i);
-    localStorage.removeItem(key);
+
+function renderContent() {
+  const path = window.location.pathname;
+  const reIndex = new RegExp('\/index');
+  const reProductPages = new RegExp('\/product-pages\/');
+
+  // row from html documents
+  const rowEl = document.querySelector('main .row');
+
+  if (reIndex.test(path)) {
+
+    // display products
+
+    const col9El = document.createElement('div');
+    col9El.classList.add('col-9')
+
+    const productsRowEl = document.createElement('div');
+    productsRowEl.classList.add('row', 'row-cols-md-1', 'row-cols-lg-2', 'row-cols-xl-3', 'g-3');
+
+    col9El.append(productsRowEl);
+
+    // const productsRowEl = col9El.querySelector('#card-container');
+
+    productsArr.forEach((product) => {
+      product.render(product.id);
+
+      const colEl = document.createElement('div');
+      colEl.classList.add('col');
+
+      const cardEl = document.createElement('div');
+      cardEl.classList.add('card', 'shadow-sm');
+
+      colEl.append(cardEl);
+
+      // product img
+      const imgContainerEl = document.createElement('div');
+      imgContainerEl.classList.add('mx-auto', 'mt-3');
+      imgContainerEl.innerHTML = `<a class="mx-auto" href="/product-pages/${product.id}.html">${product.$imgStr}</a>`
+
+      cardEl.append(imgContainerEl);
+
+      // card body
+      const cardBodyEl = document.createElement('div');
+      cardBodyEl.classList.add('card-body');
+
+      cardBodyEl.append(product.$heading, product.$colorBtns, product.$sizeBtns, product.$quantityBtns, product.$price, product.$cartActionBtns);
+
+      cardEl.append(cardBodyEl);
+
+
+      productsRowEl.append(colEl);
+    });
+
+    rowEl.append(col9El);
+
+    // display cart
+
+    rowEl.append(cart.$containerSimple);
+
   }
-};
-
-// clearLocalStorage();
+  else if (reProductPages.test(path)) {
 
 
-// find row to append cols
+    let $imgLink = document.createElement('a');
+    $imgLink.innerHTML = `<a class="mx-auto" href="/product-pages/.html">`;
 
-const rowEl = document.querySelector('main .row');
+    console.log($imgLink);
+  }
 
-// display products
+}
 
-const col9El = document.createElement('div');
-col9El.classList.add('col-9')
-
-const productsRowEl = document.createElement('div');
-productsRowEl.classList.add('row', 'row-cols-md-1', 'row-cols-lg-2', 'row-cols-xl-3', 'g-3');
-
-col9El.append(productsRowEl);
-
-// const productsRowEl = col9El.querySelector('#card-container');
-
-productsArr.forEach((product) => {
-  
-  product.render(product.id);
-
-  productsRowEl.append(product.$container);
-});
-
-rowEl.append(col9El);
-
-// display cart
-
-rowEl.append(cart.$containerSimple);
-
-
+renderContent();
 
 
 // // // cart functionality

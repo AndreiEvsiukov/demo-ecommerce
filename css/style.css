@@ -3,10 +3,10 @@
 /* Product cards */
 
 /* prie */
-#price-text {
+.price-text {
   font-size: 20px;
 }
 
-#price-currency {
+.price-currency {
   font-size: 20px;
 }
