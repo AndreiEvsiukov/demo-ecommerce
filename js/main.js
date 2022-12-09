@@ -1,12 +1,14 @@
 import { productsArr } from './modules/product/product-data.js';
-import { cart } from './modules/cart/cart.js';
+import { cart } from './modules/cart.js';
 import { navBar } from './modules/navigation.js';
+import { clearLocalStorage } from './modules/local-storage-functions.js';
 
 
 function renderContent() {
   const path = window.location.pathname;
   const reIndex = new RegExp('\/index');
   const reProductPages = new RegExp('\/product-pages\/');
+  const reCheckout = new RegExp('\/checkout');
 
   
   // find header, render content
@@ -70,6 +72,11 @@ function renderContent() {
 
     rowEl.append(col9El);
 
+
+    // display cart
+    cart.populateCart();
+    cart.renderSimple();
+    rowEl.append(cart.$containerSimple);
   }
 
   // render for product pages
@@ -138,11 +145,75 @@ function renderContent() {
 
     rowEl.append(col9El);
 
+
+    // display cart
+    cart.populateCart();
+    cart.renderSimple();
+    rowEl.append(cart.$containerSimple);
   }
 
+  // if on checkout
+  else if (reCheckout.test(path)) {
 
-  // display cart
-  rowEl.append(cart.$containerSimple);
+    // // Bootstrap form validation functionality + thank you
+
+    // Fetch the form
+    const form = document.querySelector('.needs-validation');
+    const row = form.closest('.row');
+
+    // prevent submission
+    form.addEventListener('submit', event => {
+
+    if (!form.checkValidity()) {
+      event.preventDefault()
+      event.stopPropagation()
+    } 
+
+    // your custom code: functionality after every field was validate
+    else { 
+      event.preventDefault();
+
+      // clear products from storage
+      clearLocalStorage();
+
+      // changing html content for 'thank you' after successful purchase
+      let col = document.createElement('div');
+      col.classList.add('col', 'mt-5');
+
+      let h1 = document.createElement('h1');
+      h1.innerText = 'Thank you!';
+
+      let h4 = document.createElement('h4');
+      h4.innerText = 'Return to home:';
+
+      let homeButton = document.createElement('a');
+      homeButton.classList.add('btn', 'btn-primary', 'my-2');
+      homeButton.setAttribute('href', '/index.html');
+      homeButton.innerText = 'Return';
+
+      col.append(h1, h4, homeButton);
+
+
+      // update html
+      while (row.firstChild) {
+        row.removeChild(row.firstChild);
+      }
+      row.append(col);
+
+      col.closest('.container').classList.add('text-center');
+    }
+
+    form.classList.add('was-validated');
+
+    }, false);
+
+
+    // display cart
+    cart.populateCart();
+    cart.renderExtended();
+    rowEl.append(cart.$containerExtended);
+
+  }
 
 }
 

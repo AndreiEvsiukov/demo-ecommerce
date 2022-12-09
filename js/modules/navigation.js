@@ -74,7 +74,6 @@ class Navigation {
           ;
 
           const textLink = `${this.pages[elem][el].charAt(15).toUpperCase()}${this.pages[elem][el].slice(16, -6)} ${this.pages[elem][el].slice(-6, -5)}`
-          console.log(textLink);
 
           const liEl = document.createElement('li');
           liEl.innerHTML = `<a class="dropdown-item${colorLink}" href="${this.pages[elem][el]}">${textLink}</a>`

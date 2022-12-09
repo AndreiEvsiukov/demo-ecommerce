@@ -1,5 +1,5 @@
 // local storage functions 
-import {cart} from './cart/cart.js';
+import {cart} from './cart.js';
 
 const addLocalStorage = (productId, params) => {
 
@@ -19,7 +19,7 @@ const addLocalStorage = (productId, params) => {
   }
 
   // update cart (data and page html)
-  cart.updateCart();
+  cart.updateCart('simp');
 };
 
 const removeLocalStorage = (productId) => {

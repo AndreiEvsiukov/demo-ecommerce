@@ -1,14 +1,4 @@
-import {addLocalStorage, removeLocalStorage, clearLocalStorage} from '../local-storage.js';
-
-
-// const clearLocalStorage = () => {
-//   for (let i = 0; i < localStorage.length;) {
-//     let key = localStorage.key(i);
-//     localStorage.removeItem(key);
-//   }
-// };
-
-// clearLocalStorage();
+import {removeLocalStorage, clearLocalStorage} from './local-storage-functions.js';
 
 
 
@@ -17,14 +7,14 @@ class Cart {
 
     // all products from local storage
     this.items = items;
-
     this.itemsSimple;
-    this.itemsExtended;
 
     // view
     this.$containerSimples;
     this.$tableBodySimple;
 
+    this.$containerExtended;
+    this.$tableBodyExtended;
   }
 
   // add items 
@@ -50,7 +40,6 @@ class Cart {
   }
 
 
-  // methods for simple cart
   createHtmlSimple () {
     return `<div class="p-2 text-center bg-light">Cart:</div>
     <table class="table table-bordered">
@@ -66,7 +55,7 @@ class Cart {
     </table> <!-- table -->
 
     <div class="mt-3" id="cart-buttons">
-      <a href="checkout.html" class="btn btn-primary px-3">Checkout</a>
+      <a href="/checkout.html" class="btn btn-primary px-3">Checkout</a>
       <button type="button" class="btn btn-secondary px-3" id="clear-cart">Clear cart</button>
     </div>`;
   }
@@ -78,6 +67,37 @@ class Cart {
     <td><button class="btn-close" aria-label="Close"></button></td>`;
   }
 
+
+  createHtmlExtended () {
+    return `<div class="p-2 text-center bg-light">Cart:</div>
+    <table class="table table-bordered">
+      <thead>
+        <th scope="col">Item</th>
+        <th scope="col">Color</th>
+        <th scope="col">Size</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+        <th scope="col"></th>
+      </thead>
+      <tbody>
+      </tbody>
+
+    </table> <!-- table -->
+
+    <button type="button" class="btn btn-secondary px-3" id="clear-cart">Clear cart</button>`;
+  }
+
+  createTbodyHtmlExtended (item) {
+    return `<td>${item.name}</td>
+    <td>${item.color}</td>
+    <td>${item.size}</td>
+    <td>${item.quantity}</td>
+    <td>${item.price.toFixed(2)}</td>
+    <td><button class="btn-close" aria-label="Close"></button></td>`;
+  }
+
+
+  // render for home and product pages
   renderRowsSimple () {
 
     // clear cart
@@ -119,13 +139,14 @@ class Cart {
         removeLocalStorage(itemSimple.name.replace(' ', '').toLowerCase());
 
         // update cart data and rows
-        this.updateCart();
+        this.updateCart('simp');
       });
 
       this.$tableBodySimple.append(rowEl);
     });
 
   }
+
 
   renderSimple () {
     // make container
@@ -142,54 +163,85 @@ class Cart {
     buttonEl.addEventListener('click', () => {
       clearLocalStorage();
 
-      this.updateCart();
+      this.updateCart('simp');
     })
 
     this.renderRowsSimple();
   }
 
 
-  updateCart () {
+
+  // render for checkout
+  renderRowsExtended () {
+
+    // clear cart
+    while (this.$tableBodyExtended.firstChild) {
+      this.$tableBodyExtended.removeChild(this.$tableBodyExtended.firstChild);
+    }
+
+
+    // Make rows out of items, append
+    this.items.forEach((item) => {
+      let rowEl = document.createElement('tr');
+      rowEl.innerHTML = this.createTbodyHtmlExtended(item);
+  
+      let deleteBtnEl = rowEl.querySelector('button');
+      deleteBtnEl.addEventListener('click', () => {
+
+        // delete from local storage
+        removeLocalStorage(item.name.replace(' ', '').toLowerCase());
+
+        // update cart data and rows
+        this.updateCart('ext');
+      });
+
+      this.$tableBodyExtended.append(rowEl);
+    });
+
+  }
+
+
+  renderExtended () {
+    // make container
+    this.$containerExtended = document.createElement('div');
+    this.$containerExtended.classList.add('col-5');
+    this.$containerExtended.setAttribute('id', 'cart');
+
+    // populate with html
+    this.$containerExtended.innerHTML = this.createHtmlExtended();
+    this.$tableBodyExtended = this.$containerExtended.querySelector('tbody');
+
+    // clear cart button functionality
+    let buttonEl = this.$containerExtended.querySelector('#clear-cart');
+    buttonEl.addEventListener('click', () => {
+      clearLocalStorage();
+
+      this.updateCart('ext');
+    })
+
+    this.renderRowsExtended();
+  }
+
+
+  updateCart (typeOfCart) {
     this.items = [];
 
     // update items from local storage
     this.populateCart();
 
     // re-render tdoby
-    this.renderRowsSimple();
-  }
-
-}
-
-
-function populateCart() {
-
-  let productsArr = [];
-
-  if (localStorage.length > 0) {
-    for (let i = 0; i < localStorage.length; i++) {
-      let key = localStorage.key(i);
-      let storageItem =JSON.parse(localStorage.getItem(key));
-      let item = {
-        id: storageItem.id,
-        name: storageItem.name,
-        color: storageItem.color,
-        size: storageItem.size,
-        quantity: storageItem.quantity,
-        price: storageItem.price
-      }
-
-      productsArr.push(item);
+    if (typeOfCart === 'simp') {
+      this.renderRowsSimple();
     }
+    else if (typeOfCart === 'ext') {
+      this.renderRowsExtended();
+    }
+
   }
 
-  return productsArr;
 }
 
 
 const cart = new Cart([]);
-cart.populateCart();
-cart.renderSimple();
-
 
 export {cart};

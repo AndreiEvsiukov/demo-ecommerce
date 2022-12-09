@@ -63,6 +63,8 @@ function setProducts() {
     );
 
     console.log(productData[productId])
+  } else {
+    return;
   }
 }
 
