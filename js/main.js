@@ -1,4 +1,4 @@
-import { productsArr } from './modules/product/product-data.js';
+import { productsArr } from './modules/product-data.js';
 import { cart } from './modules/cart.js';
 import { navBar } from './modules/navigation.js';
 import { clearLocalStorage } from './modules/local-storage-functions.js';

@@ -1,4 +1,4 @@
-import {addLocalStorage} from '../local-storage-functions.js';
+import {addLocalStorage} from './local-storage-functions.js';
 
 /* Btns for Product*/
 
