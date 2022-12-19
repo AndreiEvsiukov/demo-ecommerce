@@ -152,7 +152,7 @@ function renderContent() {
     rowEl.append(cart.$containerSimple);
   }
 
-  // if on checkout
+  // render for checkout
   else if (reCheckout.test(path)) {
 
     // // Bootstrap form validation functionality + thank you
