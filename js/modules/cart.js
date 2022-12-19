@@ -128,7 +128,15 @@ class Cart {
 
     // Make rows out of itemsSimple, append
 
+    let totalPrice = 0;
+    let totalQuantity = 0;
+
     this.itemsSimple.forEach((itemSimple) => {
+      
+      // add price to total price (for total row latter)
+      totalPrice += itemSimple.price;
+      totalQuantity +=itemSimple.quantity;
+
       let rowEl = document.createElement('tr');
       rowEl.innerHTML = this.createTbodyHtmlSimple(itemSimple);
   
@@ -145,6 +153,23 @@ class Cart {
       this.$tableBodySimple.append(rowEl);
     });
 
+    // add total row
+    let rowEl = document.createElement('tr');
+    rowEl.classList.add('table-light');
+    
+    let tdTotalText = document.createElement('th');
+    tdTotalText.setAttribute('scope', 'row');
+    tdTotalText.innerText = 'Total';
+
+    let tdTotalQuantity = document.createElement('td');
+    tdTotalQuantity.innerText = totalQuantity;
+
+    let tdTotalNumber = document.createElement('td');
+    tdTotalNumber.innerText = totalPrice.toFixed(2);
+
+    rowEl.append(tdTotalText, tdTotalQuantity, tdTotalNumber);
+
+    this.$tableBodySimple.append(rowEl);
   }
 
 
@@ -181,7 +206,16 @@ class Cart {
 
 
     // Make rows out of items, append
+
+    let totalPrice = 0;
+    let totalQuantity = 0;
+
     this.items.forEach((item) => {
+
+      // add price to total price (for total row latter)
+      totalPrice += item.price;
+      totalQuantity +=item.quantity;
+
       let rowEl = document.createElement('tr');
       rowEl.innerHTML = this.createTbodyHtmlExtended(item);
   
@@ -197,6 +231,26 @@ class Cart {
 
       this.$tableBodyExtended.append(rowEl);
     });
+
+
+    // add total row
+    let rowEl = document.createElement('tr');
+    rowEl.classList.add('table-light');
+
+    let tdTotalText = document.createElement('th');
+    tdTotalText.setAttribute('scope', 'row');
+    tdTotalText.setAttribute('colspan', 3);
+    tdTotalText.innerText = 'Total';
+
+    let tdTotalQuantity = document.createElement('td');
+    tdTotalQuantity.innerText = totalQuantity;
+
+    let tdTotalNumber = document.createElement('td');
+    tdTotalNumber.innerText = totalPrice.toFixed(2);
+
+    rowEl.append(tdTotalText, tdTotalQuantity, tdTotalNumber);
+
+    this.$tableBodyExtended.append(rowEl);
 
   }
 
