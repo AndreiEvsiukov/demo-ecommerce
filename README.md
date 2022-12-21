@@ -1,1 +1,2 @@
-# demo-ecommerce
+# Small ecommerce sandbox
+for testing GA
