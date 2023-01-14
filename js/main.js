@@ -226,7 +226,11 @@ function renderContent() {
 
   rowEl.append(consentEl);
 
-  const myModal = new bootstrap.Modal(document.getElementById('consentModal'))
+  const myModal = new bootstrap.Modal(document.getElementById('consentModal'), {
+    backdrop: 'static',
+    keyboard: false
+  });
+  
   myModal.show();
 }
 
