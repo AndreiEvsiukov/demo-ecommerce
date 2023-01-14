@@ -2,6 +2,7 @@ import { productsArr } from './modules/product-data.js';
 import { cart } from './modules/cart.js';
 import { navBar } from './modules/navigation.js';
 import { clearLocalStorage } from './modules/local-storage-functions.js';
+import { Consent } from './modules/consent.js';
 
 
 function renderContent() {
@@ -215,6 +216,18 @@ function renderContent() {
 
   }
 
+  
+  // display consent
+  let consent = new Consent({});
+  consent.render();
+  
+  const consentEl = document.createElement('div');
+  consentEl.prepend(consent.$container);
+
+  rowEl.append(consentEl);
+
+  const myModal = new bootstrap.Modal(document.getElementById('consentModal'))
+  myModal.show();
 }
 
 renderContent();
