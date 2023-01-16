@@ -4,11 +4,11 @@ class Consent {
     // model
 
     this.cookies = {
-      ad: 'ad_storage',
-      analytics: 'analytics_storae',
-      functionality: 'functionality_storage',
-      personalization: 'personalization_storage',
-      security: 'security_storage'
+      ad: 'adConsentGranted',
+      analytics: 'analyticsConsentGranted',
+      functionality: 'functionalityConsentGranted',
+      personalization: 'personalizationConsentGranted',
+      security: 'securityConsentGranted'
     };
 
     this.selectedCookies = [
@@ -68,37 +68,40 @@ class Consent {
 
     const analyticsCheckInputEl = this.$container.querySelector('#analyticsCookies input');
     analyticsCheckInputEl.addEventListener('click', () => {
-      this.changeCookie(analyticsCheckInputEl, 'analytics');
+      this.changeCookieData(analyticsCheckInputEl, 'analytics');
     })
 
     const adCheckInputEl = this.$container.querySelector('#adCookies input');
     adCheckInputEl.addEventListener('click', () => {
-      this.changeCookie(adCheckInputEl, 'ad');
+      this.changeCookieData(adCheckInputEl, 'ad');
     })
 
 
     const accpetCookiesButtonEl = this.$container.querySelector('#acceptCookiesButton');
     accpetCookiesButtonEl.addEventListener('click', () => {
-      console.log('hey');
+      this.setCookies();
     })
 
   }
 
-  changeCookie (inputEl, cookie) {
+  changeCookieData (inputEl, cookie) {
     inputEl.value === 'on' ? (inputEl.value = 'off') : (inputEl.value = 'on');
     
     if (inputEl.value === 'off') {
-      cookie === 'analytics' ? (cookie = 'analytics_storae') : (cookie = 'ad_storage')
+      cookie === 'analytics' ? (cookie = 'analyticsConsentGranted') : (cookie = 'adConsentGranted')
       this.selectedCookies.splice(this.selectedCookies.findIndex(e => e.includes(cookie)), 1);
 
     } else {
-      cookie === 'analytics' ? (cookie = 'analytics_storae') : (cookie = 'ad_storage')
+      cookie === 'analytics' ? (cookie = 'analyticsConsentGranted') : (cookie = 'adConsentGranted')
       this.selectedCookies.push(cookie);
     }
 
     console.log(this.selectedCookies);
   }
+
+  setCookies () {
+    document.cookie = `consent=${this.selectedCookies.join('&')}`;
+  }
   
 }
-
 export {Consent};
