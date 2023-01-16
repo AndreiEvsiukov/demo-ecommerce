@@ -100,7 +100,10 @@ class Consent {
   }
 
   setCookies () {
-    document.cookie = `consent=${this.selectedCookies.join('&')}`;
+    document.cookie = `consent1=${this.selectedCookies.join('&')}`;
+
+    let testCookie = '{"nameOne":"one","nameTwo":"two"}'
+    document.cookie = `consent=${decodeURIComponent(testCookie)}`
   }
   
 }
