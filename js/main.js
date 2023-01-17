@@ -218,11 +218,15 @@ function renderContent() {
 
 
   // display consent
+
+  
   function requireConsent() {
   
+    // if cookie 'consent' doesn't exist -> require consent
     if (!document.cookie.split(';').some((item) => item.trim().startsWith('consent='))) {
   
       let consent = new Consent({});
+      consent.integrateGTM();
       consent.render();
       
       const consentEl = document.createElement('div');
@@ -241,6 +245,15 @@ function renderContent() {
   }
 
   requireConsent();
+
+  // // for GTM consent integration
+  // let consentListeners = [];
+
+  // window.GTMConsentListener = (callback) => {
+  //   consentListeners.push(callback);
+  // }
+
+  // const onConsentUpdate
 
 }
 

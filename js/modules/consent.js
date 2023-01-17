@@ -4,12 +4,15 @@ class Consent {
     // model
 
     this.cookies = {
-      adConsentGranted: true,
-      analyticsConsentGranted: true,
+      adConsentGranted: false,
+      analyticsConsentGranted: false,
       functionalityConsentGranted: true,
       personalizationConsentGranted: true,
       securityConsentGranted: true 
     };
+
+    // for gtm 
+    this.consentListeners = [];
 
     // view 
     this.$container;
@@ -29,11 +32,11 @@ class Consent {
             <label class="form-check-label" for="functionalCookiesCheck">Functional cookies</label>
           </div>
           <div class="form-check form-switch mb-2" id="analyticsCookies">
-            <input class="form-check-input" value="on" type="checkbox" role="switch" id="analyticsCookiesCheck" checked>
+            <input class="form-check-input" value="on" type="checkbox" role="switch" id="analyticsCookiesCheck">
             <label class="form-check-label" for="analyticslCookiesCheck">Analytics cookies</label>
           </div>
           <div class="form-check form-switch mb-2" id="adCookies">
-            <input class="form-check-input" value="on" type="checkbox" role="switch" id="adCookiesCheck" checked>
+            <input class="form-check-input" value="on" type="checkbox" role="switch" id="adCookiesCheck">
             <label class="form-check-label" for="adCookiesCheck">Advertising cookies</label>
           </div>
         </div>
@@ -50,6 +53,14 @@ class Consent {
         </div>
       </div>
     </div>`;
+  }
+
+  integrateGTM () {
+
+    // implementation from https://developers.google.com/tag-platform/tag-manager/templates/consent-apis
+    window.GTMConsentListener = (callback) => {
+      this.consentListeners.push(callback);
+    };
   }
 
   render() {
@@ -72,6 +83,13 @@ class Consent {
     const accpetCookiesButtonEl = this.$container.querySelector('#acceptCookiesButton');
     accpetCookiesButtonEl.addEventListener('click', () => {
       this.setCookies();
+
+      // for GTM
+      this.consentListeners.forEach((callback) => {
+        // callback with the cookie value to subsequently fire updateConsent from gtag
+        callback(document.cookie.split(';').find((row) => row.startsWith('consent=')).split('=')[1]);
+      });
+
     })
 
   }
@@ -92,8 +110,10 @@ class Consent {
   setCookies () {
     document.cookie = `consent=${JSON.stringify(this.cookies)}`
   }
+
   
 }
+
 
 
 export {Consent};
