@@ -4,20 +4,12 @@ class Consent {
     // model
 
     this.cookies = {
-      ad: 'adConsentGranted',
-      analytics: 'analyticsConsentGranted',
-      functionality: 'functionalityConsentGranted',
-      personalization: 'personalizationConsentGranted',
-      security: 'securityConsentGranted'
+      adConsentGranted: true,
+      analyticsConsentGranted: true,
+      functionalityConsentGranted: true,
+      personalizationConsentGranted: true,
+      securityConsentGranted: true 
     };
-
-    this.selectedCookies = [
-      this.cookies.functionality,
-      this.cookies.personalization,
-      this.cookies.security,
-      this.cookies.ad,
-      this.cookies.analytics
-    ];
 
     // view 
     this.$container;
@@ -89,21 +81,16 @@ class Consent {
     
     if (inputEl.value === 'off') {
       cookie === 'analytics' ? (cookie = 'analyticsConsentGranted') : (cookie = 'adConsentGranted')
-      this.selectedCookies.splice(this.selectedCookies.findIndex(e => e.includes(cookie)), 1);
+      this.cookies[cookie] = false;
 
     } else {
       cookie === 'analytics' ? (cookie = 'analyticsConsentGranted') : (cookie = 'adConsentGranted')
-      this.selectedCookies.push(cookie);
+      this.cookies[cookie] = true;
     }
-
-    console.log(this.selectedCookies);
   }
 
   setCookies () {
-    document.cookie = `consent1=${this.selectedCookies.join('&')}`;
-
-    let testCookie = '{"nameOne":"one","nameTwo":"two"}'
-    document.cookie = `consent=${decodeURIComponent(testCookie)}`
+    document.cookie = `consent=${JSON.stringify(this.cookies)}`
   }
   
 }
