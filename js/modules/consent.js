@@ -4,8 +4,8 @@ class Consent {
     // model
 
     this.cookies = {
-      adConsentGranted: false,
-      analyticsConsentGranted: false,
+      adConsentGranted: true,
+      analyticsConsentGranted: true,
       functionalityConsentGranted: true,
       personalizationConsentGranted: true,
       securityConsentGranted: true 
@@ -32,11 +32,11 @@ class Consent {
             <label class="form-check-label" for="functionalCookiesCheck">Functional cookies</label>
           </div>
           <div class="form-check form-switch mb-2" id="analyticsCookies">
-            <input class="form-check-input" value="on" type="checkbox" role="switch" id="analyticsCookiesCheck">
+            <input class="form-check-input" value="on" type="checkbox" role="switch" id="analyticsCookiesCheck" checked>
             <label class="form-check-label" for="analyticslCookiesCheck">Analytics cookies</label>
           </div>
           <div class="form-check form-switch mb-2" id="adCookies">
-            <input class="form-check-input" value="on" type="checkbox" role="switch" id="adCookiesCheck">
+            <input class="form-check-input" value="on" type="checkbox" role="switch" id="adCookiesCheck" checked>
             <label class="form-check-label" for="adCookiesCheck">Advertising cookies</label>
           </div>
         </div>
@@ -56,7 +56,6 @@ class Consent {
   }
 
   integrateGTM () {
-
     // implementation from https://developers.google.com/tag-platform/tag-manager/templates/consent-apis
     window.GTMConsentListener = (callback) => {
       this.consentListeners.push(callback);
@@ -83,28 +82,27 @@ class Consent {
     const accpetCookiesButtonEl = this.$container.querySelector('#acceptCookiesButton');
     accpetCookiesButtonEl.addEventListener('click', () => {
       this.setCookies();
-
       // for GTM
       this.consentListeners.forEach((callback) => {
-        // callback with the cookie value to subsequently fire updateConsent from gtag
-        callback(document.cookie.split(';').find((row) => row.startsWith('consent=')).split('=')[1]);
+        // callback to subsequently fire updateConsent from gtag (undefined as an arg to find cookie in tag later)
+        callback(undefined);
       });
-
     })
 
   }
 
-  changeCookieData (inputEl, cookie) {
+  changeCookieData (inputEl, cookieType) {
     inputEl.value === 'on' ? (inputEl.value = 'off') : (inputEl.value = 'on');
     
     if (inputEl.value === 'off') {
-      cookie === 'analytics' ? (cookie = 'analyticsConsentGranted') : (cookie = 'adConsentGranted')
-      this.cookies[cookie] = false;
+      cookieType === 'analytics' ? (cookieType = 'analyticsConsentGranted') : (cookieType = 'adConsentGranted')
+      this.cookies[cookieType] = false;
 
     } else {
-      cookie === 'analytics' ? (cookie = 'analyticsConsentGranted') : (cookie = 'adConsentGranted')
-      this.cookies[cookie] = true;
+      cookieType === 'analytics' ? (cookieType = 'analyticsConsentGranted') : (cookieType = 'adConsentGranted')
+      this.cookies[cookieType] = true;
     }
+    
   }
 
   setCookies () {
