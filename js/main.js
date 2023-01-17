@@ -216,22 +216,32 @@ function renderContent() {
 
   }
 
-  
+
   // display consent
-  let consent = new Consent({});
-  consent.render();
+  function requireConsent() {
   
-  const consentEl = document.createElement('div');
-  consentEl.prepend(consent.$container);
-
-  rowEl.append(consentEl);
-
-  const myModal = new bootstrap.Modal(document.getElementById('consentModal'), {
-    backdrop: 'static',
-    keyboard: false
-  });
+    if (!document.cookie.split(';').some((item) => item.trim().startsWith('consent='))) {
   
-  myModal.show();
+      let consent = new Consent({});
+      consent.render();
+      
+      const consentEl = document.createElement('div');
+      consentEl.prepend(consent.$container);
+    
+      rowEl.append(consentEl);
+    
+      const myModal = new bootstrap.Modal(document.getElementById('consentModal'), {
+        backdrop: 'static',
+        keyboard: false
+      });
+      
+      myModal.show();
+    }
+    
+  }
+
+  requireConsent();
+
 }
 
 renderContent();
