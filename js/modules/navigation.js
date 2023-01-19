@@ -45,6 +45,10 @@ class Navigation {
 
         linkEl.innerText = this.pages[elem].text;
 
+        if (this.pages[elem].disabled) {
+          linkEl.classList.add('disabled');
+        }
+
         colEl.append(linkEl);
       }
       
@@ -65,18 +69,18 @@ class Navigation {
 
         const ulEl = btnGroupEl.querySelector('ul');
 
-        for (const el in this.pages[elem]) {
+        for (const el in this.pages[elem].productPages) {
 
           let colorLink;
-          path === this.pages[elem][el]
+          path === this.pages[elem].productPages[el]
             ? (colorLink = ' link-primary')
             : (colorLink = '')
           ;
 
-          const textLink = `${this.pages[elem][el].charAt(15).toUpperCase()}${this.pages[elem][el].slice(16, -6)} ${this.pages[elem][el].slice(-6, -5)}`
+          const textLink = `${this.pages[elem].productPages[el].charAt(15).toUpperCase()}${this.pages[elem].productPages[el].slice(16, -6)} ${this.pages[elem].productPages[el].slice(-6, -5)}`
 
           const liEl = document.createElement('li');
-          liEl.innerHTML = `<a class="dropdown-item${colorLink}" href="${this.pages[elem][el]}">${textLink}</a>`
+          liEl.innerHTML = `<a class="dropdown-item${colorLink}" href="${this.pages[elem].productPages[el]}">${textLink}</a>`
 
           ulEl.append(liEl);
         }
@@ -94,27 +98,34 @@ class Navigation {
 const navBar = new Navigation({
   home: {
     href: '/index.html',
-    text: 'Home'
+    text: 'Home',
+    disabled: false
   }, 
-  products: [
+  products: {
+    productPages: [
     '/product-pages/apple1.html',
     '/product-pages/apple2.html',
     '/product-pages/pear1.html',
     '/product-pages/pear2.html',
     '/product-pages/orange1.html',
     '/product-pages/orange2.html'
-  ],
+    ],
+    disabled: false
+  },
   specialOffers: {
     href: '/special-offers.html',
-    text: 'Special offers'
+    text: 'Special offers',
+    disabled: false
   },
   blog: {
     href: '/blog.html',
-    text: 'Blog'
+    text: 'Blog',
+    disabled: true
   },
   feedback: {
     href: '/feedback.html',
-    text: 'Feedback'
+    text: 'Feedback',
+    disabled: true
   }
 });
 

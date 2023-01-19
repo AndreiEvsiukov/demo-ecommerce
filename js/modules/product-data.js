@@ -3,12 +3,12 @@ import {Product, buttonsColor, buttonsQuanity, buttonsSize} from "./product.js";
 
 // all default product data
 const productData = {
-  apple1: {id: 'apple1', name: 'Apple 1', price: 20, imgHref: '/images/apple1.jpg'},
-  apple2: {id: 'apple2', name: 'Apple 2', price: 35, imgHref: '/images/apple2.jpg' },
-  pear1: {id: 'pear1', name: 'Pear 1', price: 29, imgHref: '/images/pear1.jpg' },
-  pear2: {id: 'pear2', name: 'Pear 2', price: 49, imgHref: '/images/pear2.jpg' },
-  orange1: {id: 'orange1', name: 'Orange 1', price: 19, imgHref: '/images/orange1.jpg' },
-  orange2: {id: 'orange2', name: 'Orange 2', price: 30, imgHref: '/images/orange2.jpg'}
+  apple1: {id: 'apple1', name: 'Apple 1', isOnSale: false, saleCoef: undefined, price: 20, imgHref: '/images/apple1.jpg'},
+  apple2: {id: 'apple2', name: 'Apple 2', isOnSale: true, saleCoef: 0.3, price: 35, imgHref: '/images/apple2.jpg' },
+  pear1: {id: 'pear1', name: 'Pear 1', isOnSale: false, saleCoef: undefined, price: 29, imgHref: '/images/pear1.jpg' },
+  pear2: {id: 'pear2', name: 'Pear 2', isOnSale: false, saleCoef: undefined, price: 49, imgHref: '/images/pear2.jpg' },
+  orange1: {id: 'orange1', name: 'Orange 1', isOnSale: false, saleCoef: undefined, price: 19, imgHref: '/images/orange1.jpg' },
+  orange2: {id: 'orange2', name: 'Orange 2', isOnSale: true, saleCoef: 0.5, price: 30, imgHref: '/images/orange2.jpg'}
 };
 const color = 'blue';
 const size = 's';
@@ -23,6 +23,7 @@ function setProducts() {
 
   const reIndex = new RegExp('\/index');
   const reProductPages = new RegExp('\/product-pages\/');
+  const reSpecialOffers = new RegExp('\/special-offers')
 
   // if on home
   let i = 0;
@@ -35,6 +36,8 @@ function setProducts() {
         color,
         size,
         quantity,
+        productData[property].isOnSale,
+        productData[property].saleCoef,
         productData[property].price,
         productData[property].imgHref,
         buttonsColor,
@@ -55,6 +58,8 @@ function setProducts() {
       color,
       size,
       quantity,
+      productData[productId].isOnSale,
+      productData[productId].saleCoef,
       productData[productId].price,
       productData[productId].imgHref,
       buttonsColor,
@@ -63,9 +68,41 @@ function setProducts() {
     );
 
     console.log(productData[productId])
-  } else {
-    return;
   }
+  
+  // if on special offers
+  else if (reSpecialOffers.test(path)) {
+    console.log('special offers');
+
+    for (const property in productData) {
+
+      if (productData[property].isOnSale) {
+
+        productsArr[i] = new Product(
+          productData[property].id,
+          productData[property].name,
+          color,
+          size,
+          quantity,
+          productData[property].isOnSale,
+          productData[property].saleCoef,
+          productData[property].price,
+          productData[property].imgHref,
+          buttonsColor,
+          buttonsSize,
+          buttonsQuanity
+        ); 
+        
+      }
+
+      i++;
+    }
+  } 
+
+  else {
+    return;   
+  }
+
 }
 
 setProducts();

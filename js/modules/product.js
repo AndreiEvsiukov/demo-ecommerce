@@ -35,6 +35,8 @@ class Product{
     color,
     size,
     quantity,
+    isOnSale,
+    saleCoef,
     price,
     imageHref,
     colorBtns,
@@ -56,7 +58,9 @@ class Product{
     
     this.quantity = quantity;
     
-    // price
+    // price and sale
+    this.isOnSale = isOnSale;
+    this.saleCoef = saleCoef;
     this.price = price;
     this.priceToPay;
 
@@ -284,9 +288,16 @@ class Product{
     this.$price.classList.add('mb-4');
     this.$price.setAttribute('id', `product-price-${productId}`);
 
-    this.$price.innerHTML = `<div class="card-text">Price:</div>
-    <span class="card-text price-text" id="price-text-${productId}">${this.price.toFixed(2)}</span>
-    <span class="card-text price-currency" id="price-currency-${productId}">€</span>`;
+    if (this.isOnSale) {
+      this.$price.innerHTML = `<div class="card-text">Price:</div>
+      <span class="card-text price-text" id="price-text-${productId}"><s>${this.price.toFixed(2)}€</s></span>`;
+      // <span class="card-text price-currency" id="price-currency-${productId}">€</span>`;
+    }
+    else {
+      this.$price.innerHTML = `<div class="card-text">Price:</div>
+      <span class="card-text price-text" id="price-text-${productId}">${this.price.toFixed(2)}</span>
+      <span class="card-text price-currency" id="price-currency-${productId}">€</span>`;
+    }
 
     this.$priceText = this.$price.querySelector(`#price-text-${productId}`);
 

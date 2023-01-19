@@ -4,11 +4,13 @@ import { navBar } from './modules/navigation.js';
 import { clearLocalStorage } from './modules/local-storage-functions.js';
 import { Consent } from './modules/consent.js';
 
+console.log(productsArr);
 
 function renderContent() {
   const path = window.location.pathname;
   const reIndex = new RegExp('\/index');
   const reProductPages = new RegExp('\/product-pages\/');
+  const reSpecialOffers = new RegExp('\/special-offers')
   const reCheckout = new RegExp('\/checkout');
 
   
@@ -142,6 +144,63 @@ function renderContent() {
       // render img and card body
 
       cardRowEl.append(imgContainerEl, cardBodyContainer);
+    });
+
+    rowEl.append(col9El);
+
+
+    // display cart
+    cart.populateCart();
+    cart.renderSimple();
+    rowEl.append(cart.$containerSimple);
+  }
+
+  else if (reSpecialOffers.test(path)) {
+
+    const col9El = document.createElement('div');
+    col9El.classList.add('col-9')
+
+    const productsRowEl = document.createElement('div');
+    productsRowEl.classList.add('row', 'row-cols-md-1', 'row-cols-lg-2', 'row-cols-xl-3', 'g-3');
+
+    col9El.append(productsRowEl);
+
+
+    productsArr.forEach((product) => {
+
+      // render attributes
+      product.render(product.id);
+
+      const colEl = document.createElement('div');
+      colEl.classList.add('col');
+
+      const cardEl = document.createElement('div');
+      cardEl.classList.add('card', 'shadow-sm');
+
+      colEl.append(cardEl);
+
+      // product img
+      const imgContainerEl = document.createElement('div');
+      imgContainerEl.classList.add('mx-auto', 'mt-3');
+
+      const imgEl = product.$imgContainer.querySelector('img');
+      const imgLinkEl = product.$imgContainer.querySelector('a');
+      imgLinkEl.append(imgEl);
+
+      imgContainerEl.append(imgLinkEl);
+
+      cardEl.append(imgContainerEl);
+
+      // card body
+      const cardBodyEl = document.createElement('div');
+      cardBodyEl.classList.add('card-body');
+
+      cardBodyEl.append(product.$heading, product.$colorBtns, product.$sizeBtns, product.$quantityBtns, product.$price, product.$cartActionBtns);
+
+      cardEl.append(cardBodyEl);
+
+
+      productsRowEl.append(colEl);
     });
 
     rowEl.append(col9El);
