@@ -29,7 +29,8 @@ class Cart {
         color: storageItem.color,
         size: storageItem.size,
         quantity: storageItem.quantity,
-        price: storageItem.price
+        price: storageItem.price,
+        isOnSale: storageItem.isOnSale
       }
   
       this.items.push(item);
@@ -92,7 +93,7 @@ class Cart {
     <td>${item.color}</td>
     <td>${item.size}</td>
     <td>${item.quantity}</td>
-    <td>${item.price.toFixed(2)}</td>
+    <td ${item.isOnSale ? 'class="text-danger"' : ''}>${item.price.toFixed(2)}</td>
     <td><button class="btn-close" aria-label="Close"></button></td>`;
   }
 
@@ -108,15 +109,15 @@ class Cart {
     // prepare a new array from items for displaying
     this.itemsSimple = this.items.reduce( (accumulator, currentItem) => {
       if (accumulator.length == 0) {
-        return [...accumulator, {name: currentItem.name, quantity: currentItem.quantity, price: currentItem.price}];
+        return [...accumulator, {id: currentItem.id, name: currentItem.name, quantity: currentItem.quantity, price: currentItem.price}];
       } else {
         let res;
-        let duplicate = accumulator.find(e => e.name == currentItem.name);
+        let duplicate = accumulator.find(e => e.id == currentItem.id);
           duplicate == undefined
             ? (res = true)
             : (res = false);
         if (res) {
-          return [...accumulator, {name: currentItem.name, quantity: currentItem.quantity, price: currentItem.price}];
+          return [...accumulator, {id: currentItem.id, name: currentItem.name, quantity: currentItem.quantity, price: currentItem.price}];
         } else {
           duplicate.quantity += currentItem.quantity;
           duplicate.price += currentItem.price;
@@ -144,7 +145,7 @@ class Cart {
       deleteBtnEl.addEventListener('click', () => {
 
         // delete from local storage
-        removeLocalStorage(itemSimple.name.replace(' ', '').toLowerCase());
+        removeLocalStorage(itemSimple.id);
 
         // update cart data and rows
         this.updateCart('simp');
@@ -223,7 +224,7 @@ class Cart {
       deleteBtnEl.addEventListener('click', () => {
 
         // delete from local storage
-        removeLocalStorage(item.name.replace(' ', '').toLowerCase());
+        removeLocalStorage(item.id);
 
         // update cart data and rows
         this.updateCart('ext');

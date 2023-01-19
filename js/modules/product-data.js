@@ -3,12 +3,12 @@ import {Product, buttonsColor, buttonsQuanity, buttonsSize} from "./product.js";
 
 // all default product data
 const productData = {
-  apple1: {id: 'apple1', name: 'Apple 1', isOnSale: false, saleCoef: undefined, price: 20, imgHref: '/images/apple1.jpg'},
-  apple2: {id: 'apple2', name: 'Apple 2', isOnSale: true, saleCoef: 0.3, price: 35, imgHref: '/images/apple2.jpg' },
-  pear1: {id: 'pear1', name: 'Pear 1', isOnSale: false, saleCoef: undefined, price: 29, imgHref: '/images/pear1.jpg' },
-  pear2: {id: 'pear2', name: 'Pear 2', isOnSale: false, saleCoef: undefined, price: 49, imgHref: '/images/pear2.jpg' },
-  orange1: {id: 'orange1', name: 'Orange 1', isOnSale: false, saleCoef: undefined, price: 19, imgHref: '/images/orange1.jpg' },
-  orange2: {id: 'orange2', name: 'Orange 2', isOnSale: true, saleCoef: 0.5, price: 30, imgHref: '/images/orange2.jpg'}
+  apple1: {id: 'apple1', name: 'Gala', isOnSale: false, saleCoef: undefined, price: 20, imgHref: '/images/apple1.jpg'},
+  apple2: {id: 'apple2', name: 'Bitten granny', isOnSale: true, saleCoef: 0.3, price: 35, imgHref: '/images/apple2.jpg' },
+  pear1: {id: 'pear1', name: 'Comice', isOnSale: false, saleCoef: undefined, price: 29, imgHref: '/images/pear1.jpg' },
+  pear2: {id: 'pear2', name: 'Red pear', isOnSale: false, saleCoef: undefined, price: 49, imgHref: '/images/pear2.jpg' },
+  orange1: {id: 'orange1', name: 'Orange', isOnSale: false, saleCoef: undefined, price: 19, imgHref: '/images/orange1.jpg' },
+  orange2: {id: 'orange2', name: 'Orange 0.5', isOnSale: true, saleCoef: 0.5, price: 30, imgHref: '/images/orange2.jpg'}
 };
 const color = 'blue';
 const size = 's';
@@ -98,10 +98,6 @@ function setProducts() {
       i++;
     }
   } 
-
-  else {
-    return;   
-  }
 
 }
 

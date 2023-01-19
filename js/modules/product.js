@@ -61,7 +61,7 @@ class Product{
     // price and sale
     this.isOnSale = isOnSale;
     this.saleCoef = saleCoef;
-    this.price = price;
+    this.price = this.isOnSale ? (price * (1 - this.saleCoef)) : (price);
     this.priceToPay;
 
     this.imageHref = imageHref;
@@ -168,7 +168,7 @@ class Product{
     this.$heading.classList.add('mb-4');
     this.$heading.setAttribute('id', `heading-${productId}`);
     this.$heading.innerHTML = `<h1 class="mb-3 display-6">${this.name}</h1>
-    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>`;
+    <p class="card-text">Aute cillum fugiat Lorem nisi proident exercitation ex. Aliquip laborum eu consectetur sint mollit proident cillum aute quis minim. Eu ex aliquip enim duis voluptate magna quis laborum ut.</p>`;
 
 
     // render color buttons and add functionality
@@ -290,8 +290,10 @@ class Product{
 
     if (this.isOnSale) {
       this.$price.innerHTML = `<div class="card-text">Price:</div>
-      <span class="card-text price-text" id="price-text-${productId}"><s>${this.price.toFixed(2)}€</s></span>`;
-      // <span class="card-text price-currency" id="price-currency-${productId}">€</span>`;
+      <span class="card-text price-text text-muted" id="old-price-text-${productId}"><s>${this.price / (1 - this.saleCoef) .toFixed(2)}</s></span>
+      <span class="card-text price-currency text-muted" id="price-currency-${productId}"><s> €</s></span>
+      <span class="card-text price-text text-danger" id="price-text-${productId}">${this.price.toFixed(2)}</span>
+      <span class="card-text price-currency text-danger" id="price-currency-${productId}"> €</span>`;
     }
     else {
       this.$price.innerHTML = `<div class="card-text">Price:</div>
@@ -412,6 +414,7 @@ class Product{
       size: this.size,
       quantity: this.quantity,
       price: this.priceToPay ? (this.priceToPay) : (this.price),
+      isOnSale: this.isOnSale
     });
 
     addLocalStorage(productId, params);
