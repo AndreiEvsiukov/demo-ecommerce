@@ -218,7 +218,6 @@ function renderContent() {
 
 
   // display consent
-
   
   function requireConsent() {
   
@@ -246,14 +245,6 @@ function renderContent() {
 
   requireConsent();
 
-  // // for GTM consent integration
-  // let consentListeners = [];
-
-  // window.GTMConsentListener = (callback) => {
-  //   consentListeners.push(callback);
-  // }
-
-  // const onConsentUpdate
 
 }
 
