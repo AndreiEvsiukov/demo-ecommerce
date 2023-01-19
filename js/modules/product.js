@@ -407,6 +407,7 @@ class Product{
   addToCart () {
 
     let productId = `${this.id}-${this.color}-${this.size}`;
+    
     let params = JSON.stringify({
       id: this.id,
       name: this.name,

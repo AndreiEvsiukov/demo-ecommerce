@@ -22,11 +22,9 @@ const addLocalStorage = (productId, params) => {
   cart.updateCart('simp');
 };
 
-const removeLocalStorage = (productId) => {
+const removeLocalStorage = (typeOfCart, productId) => {
 
-  // if exists
-  if (localStorage.length > 0) {
-
+  if (typeOfCart === 'simp') {
     // define a pattern
     let re = new RegExp(`${productId}`);
 
@@ -35,6 +33,16 @@ const removeLocalStorage = (productId) => {
       let key = localStorage.key(i);
 
       if (re.test(key)) {
+        localStorage.removeItem(key);
+      }
+    }
+  }
+  else if (typeOfCart === 'ext') {
+    // loop over all items and delete matches
+    for (let i = localStorage.length; i--;) {
+      let key = localStorage.key(i);
+
+      if (key === productId) {
         localStorage.removeItem(key);
       }
     }

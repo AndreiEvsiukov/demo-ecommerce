@@ -145,7 +145,7 @@ class Cart {
       deleteBtnEl.addEventListener('click', () => {
 
         // delete from local storage
-        removeLocalStorage(itemSimple.id);
+        removeLocalStorage('simp', itemSimple.id);
 
         // update cart data and rows
         this.updateCart('simp');
@@ -224,7 +224,7 @@ class Cart {
       deleteBtnEl.addEventListener('click', () => {
 
         // delete from local storage
-        removeLocalStorage(item.id);
+        removeLocalStorage('ext', `${item.id}-${item.color}-${item.size}`);
 
         // update cart data and rows
         this.updateCart('ext');
