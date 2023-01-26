@@ -8,9 +8,11 @@ class Navigation {
   } 
   createHtml () {
     return `<div class="row">
-      <div class="col-6 py-2">
+      <div class="col-12 py-2">
         <h1 class="fw-light">Demo store</h1>
-      </div> <!-- col 6 -->
+        <div id="rowButtons" class="row row-cols-auto">
+        </div>
+      </div> <!-- col 12 -->
     </div> <!-- row -->
   </div> <!-- container -->`;
   }
@@ -23,37 +25,41 @@ class Navigation {
     this.$container.classList.add('container');
     this.$container.innerHTML = this.createHtml();
 
-    const colEl = this.$container.querySelector('.col-6');
+    const rowEl = this.$container.querySelector('#rowButtons');
 
     // render nav items
     for (const elem in this.pages) {
 
-      // any page apart from products
-      if (elem !== 'products') {
+      // if checkout
+      if (elem === 'checkout') {
+        const colEl = document.createElement('div');
+        colEl.classList.add('col', 'px-1', 'ms-auto');
         
         const linkEl = document.createElement('a');
-        linkEl.classList.add('me-1');
-
+        
         let color;
         path === this.pages[elem].href
           ? (color = 'primary')
-          : (color = 'secondary')
+          : (color = 'outline-secondary')
         ;
+
         linkEl.classList.add('btn', 'my-2', `btn-${color}`);
-
         linkEl.setAttribute('href', `${this.pages[elem].href}`);
-
         linkEl.innerText = this.pages[elem].text;
 
         if (this.pages[elem].disabled) {
           linkEl.classList.add('disabled');
         }
 
-        colEl.append(linkEl);
+        colEl.append(linkEl)
+        rowEl.append(colEl);
       }
       
-      // product pages
-      else {
+      // if product pages
+      else if (elem === 'products') {
+        const colEl = document.createElement('div');
+        colEl.classList.add('col', 'px-1');
+
         const btnGroupEl = document.createElement('div');
         btnGroupEl.classList.add('btn-group', 'd-inline');
 
@@ -64,7 +70,7 @@ class Navigation {
           : (color = 'secondary')
         ;
 
-        btnGroupEl.innerHTML = `<button type="button" class="btn btn-${color} dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Products</button>
+        btnGroupEl.innerHTML = `<button type="button" class="me-1 my-2 btn btn-${color} dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">Products</button>
         <ul class="dropdown-menu"></ul>`;
 
         const ulEl = btnGroupEl.querySelector('ul');
@@ -86,7 +92,32 @@ class Navigation {
         }
 
         colEl.append(btnGroupEl);
+        rowEl.append(colEl);
+      }
 
+      // all other pages
+      else {
+        const colEl = document.createElement('div');
+        colEl.classList.add('col', 'px-1');
+        
+        const linkEl = document.createElement('a');
+        
+        let color;
+        path === this.pages[elem].href
+          ? (color = 'primary')
+          : (color = 'secondary')
+        ;
+
+        linkEl.classList.add('me-1', 'btn', 'my-2', `btn-${color}`);
+        linkEl.setAttribute('href', `${this.pages[elem].href}`);
+        linkEl.innerText = this.pages[elem].text;
+
+        if (this.pages[elem].disabled) {
+          linkEl.classList.add('disabled');
+        }
+
+        colEl.append(linkEl)
+        rowEl.append(colEl);
       }
 
     }
@@ -126,6 +157,11 @@ const navBar = new Navigation({
     href: '/feedback.html',
     text: 'Feedback',
     disabled: true
+  },
+  checkout: {
+    href: '/checkout.html',
+    text: 'Checkout',
+    disabled: false
   }
 });
 

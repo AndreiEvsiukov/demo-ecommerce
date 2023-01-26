@@ -56,8 +56,8 @@ class Cart {
     </table> <!-- table -->
 
     <div class="mt-3" id="cart-buttons">
-      <a href="/checkout.html" class="btn btn-primary px-3">Checkout</a>
-      <button type="button" class="btn btn-secondary px-3" id="clear-cart">Clear cart</button>
+      <a href="/checkout.html" class="btn btn-primary px-3">To checkout</a>
+      <button type="button" class="btn btn-light px-3" id="clear-cart">Clear cart</button>
     </div>`;
   }
 

@@ -38,7 +38,7 @@ function renderContent() {
     productsArr.forEach((product) => {
 
       // render attributes
-      product.render(product.id);
+      product.render();
 
       const colEl = document.createElement('div');
       colEl.classList.add('col');
@@ -49,16 +49,7 @@ function renderContent() {
       colEl.append(cardEl);
 
       // product img
-      const imgContainerEl = document.createElement('div');
-      imgContainerEl.classList.add('mx-auto', 'mt-3');
-
-      const imgEl = product.$imgContainer.querySelector('img');
-      const imgLinkEl = product.$imgContainer.querySelector('a');
-      imgLinkEl.append(imgEl);
-
-      imgContainerEl.append(imgLinkEl);
-
-      cardEl.append(imgContainerEl);
+      cardEl.append(product.$imgContainer);
 
       // card body
       const cardBodyEl = document.createElement('div');
@@ -95,7 +86,7 @@ function renderContent() {
     */     
 
     const cardEl = document.createElement('div');
-    cardEl.classList.add('card', 'mx-auto', 'shadow-sm',);
+    cardEl.classList.add('card', 'mx-auto', 'shadow-sm', 'mb-5');
 
     col9El.append(cardEl);
 
@@ -112,7 +103,7 @@ function renderContent() {
       if (!Array.isArray(product)) {
         
         // render attributes
-        product.render(product.id);
+        product.render();
 
 
         // product img
@@ -156,9 +147,16 @@ function renderContent() {
       }
       // if additional products (small snippets)
       else {
+        const rowForSnippetsEl = document.createElement('div');
+        rowForSnippetsEl.classList.add('row', 'row-cols-md-1', 'row-cols-lg-2', 'row-cols-xl-3', 'g-3');
+
         product.forEach((e) => {
           e.renderSnippet();
+
+          rowForSnippetsEl.append(e.$snippetContainer);
         })
+
+        col9El.append(rowForSnippetsEl);
       }
 
     });
@@ -186,7 +184,7 @@ function renderContent() {
     productsArr.forEach((product) => {
 
       // render attributes
-      product.render(product.id);
+      product.render();
 
       const colEl = document.createElement('div');
       colEl.classList.add('col');

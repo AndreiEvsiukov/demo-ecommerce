@@ -96,47 +96,49 @@ class Product{
   }
 
 
-  createHtml () {
+  // createHtml () {
 
-    return `<div class='col'>
-    <div class="card shadow-sm">
-      <a class="mx-auto" href="/product-pages/${this.id}.html">  
-        <img src=${this.imageHref} width="200" height="200">
-      </a>
+  //   return `<div class='col'>
+  //   <div class="card shadow-sm">
+  //     <a class="mx-auto" href="/product-pages/${this.id}.html">  
+  //       <img src=${this.imageHref} width="200" height="200">
+  //     </a>
   
-      <div class="card-body">
-        <h1 class="mb-4 display-6">${this.name}</h1>
-        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+  //     <div class="card-body">
+  //       <h1 class="mb-4 display-6">${this.name}</h1>
+  //       <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
 
-        <!-- colour choice -->
-        <div class='mb-3' id='color-choice'></div>
+  //       <!-- colour choice -->
+  //       <div class='mb-3' id='color-choice'></div>
   
-        <!-- size choice -->
-        <div class='mb-3' id='size-choice'></div>
+  //       <!-- size choice -->
+  //       <div class='mb-3' id='size-choice'></div>
   
-        <!-- quantity choice -->
-        <div class='mb-3' id='quantity-choice'>
+  //       <!-- quantity choice -->
+  //       <div class='mb-3' id='quantity-choice'>
 
-        <span class="ms-2 badge bg-secondary" id="quantity-text">${this.quantity}</span>
-        </div>
+  //       <span class="ms-2 badge bg-secondary" id="quantity-text">${this.quantity}</span>
+  //       </div>
   
-        <!-- add to card / clear -->
-        <div id="card-actions">
-          <button type="button" class="btn btn-primary mt-4 me-2 px-3" id="add-to-cart">Add to cart</button>
-          <button type="button" class="btn btn-light mt-4 px-3" id="clear-choice">Clear selection</button>
-        </div>
+  //       <!-- add to card / clear -->
+  //       <div id="card-actions">
+  //         <button type="button" class="btn btn-primary mt-4 me-2 px-3" id="add-to-cart">Add to cart</button>
+  //         <button type="button" class="btn btn-light mt-4 px-3" id="clear-choice">Clear selection</button>
+  //       </div>
       
-      </div> <!-- card body -->
-    </div> <!-- card -->
-    </div>`;
+  //     </div> <!-- card body -->
+  //   </div> <!-- card -->
+  //   </div>`;
     
-  }
+  // }
 
   createSnippetHTML () {
     return `<div class="card shadow-sm">
-      <a class="mx-auto" href="/product-pages/${this.id}.html">  
-        <img src=${this.imageHref} width="200" height="200">
-      </a>
+      <div class="mx-auto mt-4" id="header-${this.id}">  
+        <a href="/product-pages/${this.id}.html">  
+          <img src=${this.imageHref} width="200" height="200">
+        </a>
+      </div>
   
       <div class="card-body">
         <h1 class="mb-4 display-6">${this.name}</h1>
@@ -144,14 +146,15 @@ class Product{
   
         <!-- go to page button -->
         <div id="card-actions">
-          <a class="btn btn-outline-primary px-3" href="/product-pages/${this.id}.html" role="button" id="go-to-${this.id}">Show ${this.name}</a>
+          <a class="btn btn-outline-primary px-3" href="/product-pages/${this.id}.html" role="button" id="go-to-${this.id}">Show ${this.name}
+          </a>
         </div>
       
       </div> <!-- card body -->
     </div> <!-- card -->`;
   }
 
-  createBtnHtml (i, data, id, text, bootColor, productId) {
+  createBtnHtml (i, data, id, text, bootColor) {
     let h;
     
     // for color and size
@@ -162,13 +165,13 @@ class Product{
         checked = 'checked';
       }
       
-      h = `<input type="radio" class="btn-check" name="${id}-button-options-${productId}" id="${id}-button-${data}-${productId}" ${checked}>
-      <label class="btn btn-outline-${bootColor}" for="${id}-button-${data}-${productId}">${text}</label>`;
+      h = `<input type="radio" class="btn-check" name="${id}-button-options-${this.id}" id="${id}-button-${data}-${this.id}" ${checked}>
+      <label class="btn btn-outline-${bootColor}" for="${id}-button-${data}-${this.id}">${text}</label>`;
     } 
     
     // for quantity
     else {
-      h = `<input type="button" class="btn border mt-1 me-2 mb-1" name="${id}-${data ? ('up') : ('down')}-${productId}" id="${id}-${data ? ('up') : ('down')}-${productId}" value="${text}">`
+      h = `<input type="button" class="btn border mt-1 me-2 mb-1" name="${id}-${data ? ('up') : ('down')}-${this.id}" id="${id}-${data ? ('up') : ('down')}-${this.id}" value="${text}">`
     }
 
     return h;
@@ -176,15 +179,39 @@ class Product{
 
 
   // create product card here 
-  render(productId) {
+  render() {
 
 
     // render img
     this.$imgContainer = document.createElement('div');
-    this.$imgContainer.innerHTML = `<a class="mx-auto" href="/product-pages/${this.id}.html"></a>
-    <img src=${this.imageHref} width="200" height="200">`;
+    this.$imgContainer.classList.add('mx-auto', 'mt-4');
 
 
+    const imgLinkEl = document.createElement('a');
+    imgLinkEl.classList.add('mx-auto');
+    imgLinkEl.setAttribute('href', `/product-pages/${this.id}.html`);
+
+    const imgEl = document.createElement('img');
+    imgEl.classList.add('mx-auto');
+    imgEl.setAttribute('src', `${this.imageHref}`);
+    imgEl.setAttribute('width', 200);
+    imgEl.setAttribute('height', 200);
+
+    imgLinkEl.append(imgEl);
+    
+    this.$imgContainer.append(imgLinkEl);
+
+    if (this.isOnSale) {
+      const badgeEl = document.createElement('span');
+      badgeEl.classList.add('position-absolute', 'translate-middle', 'badge', 'rounded-pill', 'bg-danger');
+      // id for styles in css
+      badgeEl.setAttribute('id', 'saleBadge');
+      badgeEl.innerText = 'SALE';
+      this.$imgContainer.append(badgeEl);
+    }
+
+
+    
     // render heading
     this.$heading = document.createElement('div');
     this.$heading.classList.add('mb-4');
@@ -196,7 +223,7 @@ class Product{
     // render color buttons and add functionality
     this.$colorBtns = document.createElement('div');
     this.$colorBtns.classList.add('mb-3');
-    this.$colorBtns.setAttribute('id', `color-choice-${productId}`);
+    this.$colorBtns.setAttribute('id', `color-choice-${this.id}`);
 
     this.btns.color.data.forEach((data, i) => {
 
@@ -206,8 +233,7 @@ class Product{
         data,
         this.btns.color.id,
         this.btns.color.text[i],
-        this.btns.color.bootColors[i],
-        productId
+        this.btns.color.bootColors[i]
       );
 
       let labelEl = btnEl.querySelector('label');
@@ -220,7 +246,7 @@ class Product{
 
     // color heading
     const colorHeading = document.createElement('div');
-    colorHeading.classList.add(`Card-text-${productId}`);
+    colorHeading.classList.add(`Card-text-${this.id}`);
     colorHeading.innerText = 'Colors:';
     this.$colorBtns.prepend(colorHeading);
 
@@ -230,7 +256,7 @@ class Product{
     // render size buttons and add functionality
     this.$sizeBtns = document.createElement('div');
     this.$sizeBtns.classList.add('mb-3');
-    this.$sizeBtns.setAttribute('id', `size-choice-${productId}`);
+    this.$sizeBtns.setAttribute('id', `size-choice-${this.id}`);
 
     this.btns.size.data.forEach((data, i) => {
 
@@ -240,8 +266,7 @@ class Product{
         data,
         this.btns.size.id,
         this.btns.size.text[i],
-        this.btns.size.bootColor,
-        productId
+        this.btns.size.bootColor
       );
 
       let labelEl = btnEl.querySelector('label');
@@ -254,7 +279,7 @@ class Product{
 
     // size heading
     const sizeHeading = document.createElement('div');
-    sizeHeading.classList.add(`Card-text-${productId}`);
+    sizeHeading.classList.add(`Card-text-${this.id}`);
     sizeHeading.innerText = 'Sizes:';
     this.$sizeBtns.prepend(sizeHeading);
 
@@ -263,7 +288,7 @@ class Product{
     // render quantity buttons and add functionality
     this.$quantityBtns = document.createElement('div');
     this.$quantityBtns.classList.add('mb-3');
-    this.$quantityBtns.setAttribute('id', `quantity-choice-${productId}`);
+    this.$quantityBtns.setAttribute('id', `quantity-choice-${this.id}`);
     
     this.btns.quantity.data.forEach((data, i) => {
 
@@ -273,8 +298,7 @@ class Product{
         data,
         this.btns.quantity.id,
         this.btns.quantity.text[i],
-        this.btns.quantity.bootColor,
-        productId
+        this.btns.quantity.bootColor
       );
 
       let labelEl = btnEl.querySelector('input');
@@ -288,7 +312,7 @@ class Product{
     
     let quantityEl = document.createElement('span');
     quantityEl.classList.add('ms-1', 'badge', 'bg-secondary');
-    quantityEl.setAttribute('id', `quantity-text-${productId}`);
+    quantityEl.setAttribute('id', `quantity-text-${this.id}`);
     quantityEl.innerText = this.quantity;
 
     // add quantity text to view for later functiions
@@ -298,7 +322,7 @@ class Product{
 
     // quantity heading 
     const quantityHeading = document.createElement('div');
-    quantityHeading.classList.add(`Card-text-${productId}`);
+    quantityHeading.classList.add(`Card-text-${this.id}`);
     quantityHeading.innerText = 'Quantity:';
     this.$quantityBtns.prepend(quantityHeading);
 
@@ -308,37 +332,37 @@ class Product{
     // find price elem and add it to view
     this.$price = document.createElement('div');
     this.$price.classList.add('mb-4');
-    this.$price.setAttribute('id', `product-price-${productId}`);
+    this.$price.setAttribute('id', `product-price-${this.id}`);
 
     if (this.isOnSale) {
       this.$price.innerHTML = `<div class="card-text">Price:</div>
-      <span class="card-text price-text text-muted" id="old-price-text-${productId}"><s>${this.price / (1 - this.saleCoef) .toFixed(2)}</s></span>
-      <span class="card-text price-currency text-muted" id="price-currency-${productId}"><s> €</s></span>
-      <span class="card-text price-text text-danger" id="price-text-${productId}">${this.price.toFixed(2)}</span>
-      <span class="card-text price-currency text-danger" id="price-currency-${productId}"> €</span>`;
+      <span class="card-text price-text text-muted" id="old-price-text-${this.id}"><s>${this.price / (1 - this.saleCoef) .toFixed(2)}</s></span>
+      <span class="card-text price-currency text-muted" id="price-currency-${this.id}"><s> €</s></span>
+      <span class="card-text price-text text-danger" id="price-text-${this.id}">${this.price.toFixed(2)}</span>
+      <span class="card-text price-currency text-danger" id="price-currency-${this.id}"> €</span>`;
     }
     else {
       this.$price.innerHTML = `<div class="card-text">Price:</div>
-      <span class="card-text price-text" id="price-text-${productId}">${this.price.toFixed(2)}</span>
-      <span class="card-text price-currency" id="price-currency-${productId}">€</span>`;
+      <span class="card-text price-text" id="price-text-${this.id}">${this.price.toFixed(2)}</span>
+      <span class="card-text price-currency" id="price-currency-${this.id}">€</span>`;
     }
 
-    this.$priceText = this.$price.querySelector(`#price-text-${productId}`);
+    this.$priceText = this.$price.querySelector(`#price-text-${this.id}`);
 
 
     // find addToCart and clearChoice buttons and add functionality
     this.$cartActionBtns = document.createElement('div');
     this.$cartActionBtns.classList.add('mb-2');
-    this.$cartActionBtns.setAttribute('id', `card-actions-${productId}`);
-    this.$cartActionBtns.innerHTML = `<button type="button" class="btn btn-primary me-2 px-3" id="add-to-cart-${productId}">Add to cart</button>
-    <button type="button" class="btn btn-light px-3" id="clear-choice-${productId}">Clear selection</button>`;
+    this.$cartActionBtns.setAttribute('id', `card-actions-${this.id}`);
+    this.$cartActionBtns.innerHTML = `<button type="button" class="btn btn-primary me-2 px-3" id="add-to-cart-${this.id}">Add to cart</button>
+    <button type="button" class="btn btn-light px-3" id="clear-choice-${this.id}">Clear selection</button>`;
 
-    this.$clearChoice = this.$cartActionBtns.querySelector(`#clear-choice-${productId}`);
+    this.$clearChoice = this.$cartActionBtns.querySelector(`#clear-choice-${this.id}`);
     this.$clearChoice.addEventListener('click', () => {
       this.clearSelection();
     })
 
-    this.$addToCart = this.$cartActionBtns.querySelector(`#add-to-cart-${productId}`);
+    this.$addToCart = this.$cartActionBtns.querySelector(`#add-to-cart-${this.id}`);
     this.$addToCart.addEventListener('click', () => {
       this.addToCart();
     });
@@ -349,6 +373,19 @@ class Product{
   renderSnippet() {
     this.$snippetContainer = document.createElement('div');
     this.$snippetContainer.classList.add('col');
+    this.$snippetContainer.innerHTML = this.createSnippetHTML();
+
+    if (this.isOnSale) {
+      console.log('on sale');
+      const linkInHeaderEl = this.$snippetContainer.querySelector(`#header-${this.id} a`);
+      const badgeEl = document.createElement('span');
+      badgeEl.classList.add('position-absolute', 'translate-middle', 'badge', 'rounded-pill', 'bg-danger');
+      // id for styles in css
+      badgeEl.setAttribute('id', 'saleBadge');
+      badgeEl.innerText = 'SALE';
+      linkInHeaderEl.append(badgeEl);
+    }
+
 
     console.log(this.$snippetContainer);
   }
