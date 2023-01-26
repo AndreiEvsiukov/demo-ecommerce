@@ -47,9 +47,10 @@ function setProducts() {
 
       i++;
     }
-
+  } 
+  
   // if on product pages
-  } else if (reProductPages.test(path)) {
+  else if (reProductPages.test(path)) {
     const productId = path.slice(15, -5);
 
     productsArr[0] = new Product(
@@ -67,7 +68,34 @@ function setProducts() {
       buttonsQuanity
     );
 
-    console.log(productData[productId])
+    // choose three random products to display 
+    const properties = Object.keys(productData);
+    let pickedProperties = [];
+    let pickedProducts = [];
+
+    while (pickedProducts.length < 3) {
+      const randomIndex = Math.floor(Math.random() * properties.length);
+      const randomProperty = properties[randomIndex];
+      if (!pickedProperties.includes(randomProperty)) {
+        pickedProperties.push(randomProperty);
+        pickedProducts.push(new Product(
+          productData[randomProperty].id,
+          productData[randomProperty].name,
+          color,
+          size,
+          quantity,
+          productData[randomProperty].isOnSale,
+          productData[randomProperty].saleCoef,
+          productData[randomProperty].price,
+          productData[randomProperty].imgHref,
+          buttonsColor,
+          buttonsSize,
+          buttonsQuanity
+        ));
+      }
+    }
+
+    productsArr.push(pickedProducts);
   }
   
   // if on special offers

@@ -106,7 +106,10 @@ class Consent {
   }
 
   setCookies () {
-    document.cookie = `consent=${JSON.stringify(this.cookies)}`
+    const oneYearFromNow = new Date((new Date().setFullYear(new Date().getFullYear() + 1)));
+    const expiresString = `${oneYearFromNow.toUTCString()}`
+    console.log(expiresString);
+    document.cookie = `consent=${JSON.stringify(this.cookies)}; ${expiresString}`
   }
 
   

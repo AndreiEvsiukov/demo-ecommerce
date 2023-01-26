@@ -73,7 +73,7 @@ class Product{
     }
 
 
-    // view properties (order like html)
+    // view properties (order like html)    
     this.$imgContainer;
 
     this.$heading;
@@ -90,6 +90,9 @@ class Product{
     this.$cartActionBtns;
     this.$addToCart;
     this.$clearChoice;
+
+
+    this.$snippetContainer;
   }
 
 
@@ -129,6 +132,25 @@ class Product{
     
   }
 
+  createSnippetHTML () {
+    return `<div class="card shadow-sm">
+      <a class="mx-auto" href="/product-pages/${this.id}.html">  
+        <img src=${this.imageHref} width="200" height="200">
+      </a>
+  
+      <div class="card-body">
+        <h1 class="mb-4 display-6">${this.name}</h1>
+        <p class="mb-4 card-text">Veniam consectetur ex labore ipsum occaecat pariatur elit non ex dolore esse eu ad.</p>
+  
+        <!-- go to page button -->
+        <div id="card-actions">
+          <a class="btn btn-outline-primary px-3" href="/product-pages/${this.id}.html" role="button" id="go-to-${this.id}">Show ${this.name}</a>
+        </div>
+      
+      </div> <!-- card body -->
+    </div> <!-- card -->`;
+  }
+
   createBtnHtml (i, data, id, text, bootColor, productId) {
     let h;
     
@@ -166,7 +188,7 @@ class Product{
     // render heading
     this.$heading = document.createElement('div');
     this.$heading.classList.add('mb-4');
-    this.$heading.setAttribute('id', `heading-${productId}`);
+    this.$heading.setAttribute('id', `heading-${this.id}`);
     this.$heading.innerHTML = `<h1 class="mb-3 display-6">${this.name}</h1>
     <p class="card-text">Aute cillum fugiat Lorem nisi proident exercitation ex. Aliquip laborum eu consectetur sint mollit proident cillum aute quis minim. Eu ex aliquip enim duis voluptate magna quis laborum ut.</p>`;
 
@@ -322,6 +344,13 @@ class Product{
     });
 
 
+  }
+
+  renderSnippet() {
+    this.$snippetContainer = document.createElement('div');
+    this.$snippetContainer.classList.add('col');
+
+    console.log(this.$snippetContainer);
   }
 
 

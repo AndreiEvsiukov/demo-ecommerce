@@ -4,7 +4,6 @@ import { navBar } from './modules/navigation.js';
 import { clearLocalStorage } from './modules/local-storage-functions.js';
 import { Consent } from './modules/consent.js';
 
-console.log(productsArr);
 
 function renderContent() {
   const path = window.location.pathname;
@@ -88,6 +87,13 @@ function renderContent() {
     const col9El = document.createElement('div');
     col9El.classList.add('col-9');
 
+    /*
+      ---note---
+      you should make different render() for home page and for product pages
+      then you should also put div.card and div.row from below inside of those different
+      render() functions 
+    */     
+
     const cardEl = document.createElement('div');
     cardEl.classList.add('card', 'mx-auto', 'shadow-sm',);
 
@@ -102,48 +108,59 @@ function renderContent() {
 
     productsArr.forEach((product) => {
 
-      // render attributes
-      product.render(product.id);
+      // check the product to be the main product to diplay
+      if (!Array.isArray(product)) {
+        
+        // render attributes
+        product.render(product.id);
 
 
-      // product img
-      const imgContainerEl = document.createElement('div');
-      imgContainerEl.classList.add('col-md-5', 'p-3', 'align-self-center');
-      
-      const imgEl = product.$imgContainer.querySelector('img');
-      imgEl.classList.add('mx-auto', 'd-block')
-      imgEl.setAttribute('width', 300);
-      imgEl.removeAttribute('height');
-      imgContainerEl.append(imgEl);
+        // product img
+        const imgContainerEl = document.createElement('div');
+        imgContainerEl.classList.add('col-md-5', 'p-3', 'align-self-center');
+        
+        const imgEl = product.$imgContainer.querySelector('img');
+        imgEl.classList.add('mx-auto', 'd-block')
+        imgEl.setAttribute('width', 300);
+        imgEl.removeAttribute('height');
+        imgContainerEl.append(imgEl);
 
-      cardEl.append(imgContainerEl);
-
-
-      // // card body
-      const cardBodyContainer = document.createElement('div');
-      cardBodyContainer.classList.add('col-md-7');
-
-      const cardBodyEl = document.createElement('div');
-      cardBodyEl.classList.add('card-body');
+        cardEl.append(imgContainerEl);
 
 
-      const cardBodyRowEl = document.createElement('div');
-      cardBodyRowEl.classList.add('row');
+        // // card body
+        const cardBodyContainer = document.createElement('div');
+        cardBodyContainer.classList.add('col-md-7');
 
-      product.$colorBtns.classList.add('col-5');
-      product.$sizeBtns.classList.add('col-5');
-
-      cardBodyRowEl.append(product.$colorBtns, product.$sizeBtns);
-
-
-      cardBodyEl.append(product.$heading, cardBodyRowEl, product.$quantityBtns, product.$price, product.$cartActionBtns);
-
-      cardBodyContainer.append(cardBodyEl);
+        const cardBodyEl = document.createElement('div');
+        cardBodyEl.classList.add('card-body');
 
 
-      // render img and card body
+        const cardBodyRowEl = document.createElement('div');
+        cardBodyRowEl.classList.add('row');
 
-      cardRowEl.append(imgContainerEl, cardBodyContainer);
+        product.$colorBtns.classList.add('col-5');
+        product.$sizeBtns.classList.add('col-5');
+
+        cardBodyRowEl.append(product.$colorBtns, product.$sizeBtns);
+
+
+        cardBodyEl.append(product.$heading, cardBodyRowEl, product.$quantityBtns, product.$price, product.$cartActionBtns);
+
+        cardBodyContainer.append(cardBodyEl);
+
+
+        // render img and card body
+
+        cardRowEl.append(imgContainerEl, cardBodyContainer);
+      }
+      // if additional products (small snippets)
+      else {
+        product.forEach((e) => {
+          e.renderSnippet();
+        })
+      }
+
     });
 
     rowEl.append(col9El);
