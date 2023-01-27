@@ -323,6 +323,3 @@ function renderContent() {
 }
 
 renderContent();
-
-
-console.log('hey!');
