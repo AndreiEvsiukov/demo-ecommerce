@@ -71,6 +71,7 @@ class Product{
       size: sizeBtns,
       quantity: quantityBtns
     }
+  
 
 
     // view properties (order like html)
@@ -145,45 +146,110 @@ class Product{
 
   // create product card here 
   render() {
-    // set up the container
+    // tests to create view dinamically 
+    const path = window.location.pathname;
+
+    const reIndexOrSpecialOffers = new RegExp('\/index|\/special-offers');
+    const reIndexOrSpecialOffersTest = reIndexOrSpecialOffers.test(path);
+
+    // const reSpecialOffers = new RegExp('\/special-offers')
+    // const reSpecialOffersTest = reSpecialOffers.test(path);
+
+    const reProductPages = new RegExp('\/product-pages\/');
+    const reProductPagesTest = reProductPages.test(path);
+
+
     this.$container = document.createElement('div');
-    this.$container.classList.add('col');
+    // will serve as a middle-agent to append everything to the conatiner
+    let cardEl;
 
-    const cardEl = document.createElement('div');
-    cardEl.classList.add('card', 'shadow-sm');
+    // basic changes to container and dinamic images 
+    if (reIndexOrSpecialOffersTest) {
 
-    this.$container.append(cardEl);
+      this.$container.classList.add('col');
 
+      cardEl = document.createElement('div');
+      cardEl.classList.add('card', 'shadow-sm');
+      // for gtm
+      cardEl.setAttribute('data-gtm-view', `{
+        "event": "view_item_list",
+        "ecommerce": {
+          "item_list_id": "${path}",
+          "item_list_name": "The only lyst i have",
+          "items": [
+           {
+            "item_id": "${this.id}",
+            "item_name": "${this.name}",
+            "affiliation": "",
+            "coupon": "",
+            "discount": "${this.isOnSale ? this.saleCoef : ''}",
+            "index": 0,
+            item_category: "fruit",
+            item_list_id: "fruits",
+            item_list_name: "Fruits",
+            item_variant: "",
+            location_id: "ChIJIQBpAG2ahYAR_6128GcTUEo",
+            price: 9.99,
+            quantity: 1
+          }
+          ]
+        }
+      }`)
 
-    // render img
-    this.$imgContainer = document.createElement('div');
-    this.$imgContainer.classList.add('mx-auto', 'mt-4');
-
-
-    const imgLinkEl = document.createElement('a');
-    imgLinkEl.classList.add('mx-auto');
-    imgLinkEl.setAttribute('href', `/product-pages/${this.id}.html`);
-
-    const imgEl = document.createElement('img');
-    imgEl.classList.add('mx-auto');
-    imgEl.setAttribute('src', `${this.imageHref}`);
-    imgEl.setAttribute('width', 200);
-    imgEl.setAttribute('height', 200);
-
-    imgLinkEl.append(imgEl);
-
-    this.$imgContainer.append(imgLinkEl);
-
-    if (this.isOnSale) {
-      const badgeEl = document.createElement('span');
-      badgeEl.classList.add('position-absolute', 'translate-middle', 'badge', 'rounded-pill', 'bg-danger');
-      // id for styles in css
-      badgeEl.setAttribute('id', 'saleBadge');
-      badgeEl.innerText = 'SALE';
-      this.$imgContainer.append(badgeEl);
+      this.$container.append(cardEl);
     }
 
-    // append img to container
+    else if (reProductPagesTest) {
+
+      this.$container.classList.add('card', 'mx-auto', 'shadow-sm', 'mb-5');
+
+      cardEl = document.createElement('div');
+      cardEl.classList.add('row', 'g-3', 'p-1');
+
+      this.$container.append(cardEl);
+    }
+
+    
+
+    // render img
+
+    this.$imgContainer = document.createElement('div');
+
+    const imgEl = document.createElement('img');
+    imgEl.classList.add('mx-auto', reProductPagesTest ? 'd-block' : undefined);
+    imgEl.setAttribute('src', `${this.imageHref}`);
+    imgEl.setAttribute('width', reIndexOrSpecialOffersTest ? 200 : 300);
+    imgEl.setAttribute('height', reIndexOrSpecialOffersTest ? 200 : 300);
+
+
+    if (reIndexOrSpecialOffersTest) {
+      this.$imgContainer.classList.add('mx-auto', 'mt-4');
+
+      const imgLinkEl = document.createElement('a');
+      imgLinkEl.classList.add('mx-auto');
+      imgLinkEl.setAttribute('href', `/product-pages/${this.id}.html`);
+
+      imgLinkEl.append(imgEl);
+      
+      this.$imgContainer.append(imgLinkEl);
+
+      if (this.isOnSale) {
+        const badgeEl = document.createElement('span');
+        badgeEl.classList.add('position-absolute', 'translate-middle', 'badge', 'rounded-pill', 'bg-danger');
+        // id for styles in css
+        badgeEl.setAttribute('id', 'saleBadge');
+        badgeEl.innerText = 'SALE';
+        this.$imgContainer.append(badgeEl);
+      }
+
+    }
+
+    else if (reProductPagesTest) {
+      this.$imgContainer.classList.add('col-md-5', 'p-3', 'align-self-center');
+
+      this.$imgContainer.append(imgEl);
+    }
+
     cardEl.append(this.$imgContainer);
 
 
@@ -198,7 +264,7 @@ class Product{
 
     // render color buttons and add functionality
     this.$colorBtns = document.createElement('div');
-    this.$colorBtns.classList.add('mb-3');
+    this.$colorBtns.classList.add('mb-3', reProductPagesTest ? 'col-5' : undefined);
     this.$colorBtns.setAttribute('id', `color-choice-${this.id}`);
 
     this.btns.color.data.forEach((data, i) => {
@@ -231,7 +297,7 @@ class Product{
 
     // render size buttons and add functionality
     this.$sizeBtns = document.createElement('div');
-    this.$sizeBtns.classList.add('mb-3');
+    this.$sizeBtns.classList.add('mb-3', reProductPagesTest ? 'col-5' : undefined);
     this.$sizeBtns.setAttribute('id', `size-choice-${this.id}`);
 
     this.btns.size.data.forEach((data, i) => {
@@ -345,12 +411,32 @@ class Product{
 
 
     // create a card body for all the parts above, append everything to it, then append to the container 
+
     const cardBodyEl = document.createElement('div');
     cardBodyEl.classList.add('card-body');
 
-    cardBodyEl.append(this.$heading, this.$colorBtns, this.$sizeBtns, this.$quantityBtns, this.$price, this.$cartActionBtns);
+    if (reIndexOrSpecialOffersTest) {
+      cardBodyEl.append(this.$heading, this.$colorBtns, this.$sizeBtns, this.$quantityBtns, this.$price, this.$cartActionBtns);
+  
+      cardEl.append(cardBodyEl);
+    }
 
-    cardEl.append(cardBodyEl);
+    else if (reProductPagesTest) {
+      const cardBodyContainer = document.createElement('div');
+      cardBodyContainer.classList.add('col-md-7');
+  
+      const cardBodyRowEl = document.createElement('div');
+      cardBodyRowEl.classList.add('row');
+  
+      cardBodyRowEl.append(this.$colorBtns, this.$sizeBtns);
+  
+      cardBodyEl.append(this.$heading, cardBodyRowEl, this.$quantityBtns, this.$price, this.$cartActionBtns);
+  
+      cardBodyContainer.append(cardBodyEl);
+
+      cardEl.append(cardBodyContainer);
+    }
+
 
   }
 

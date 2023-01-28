@@ -36,41 +36,19 @@ function renderContent() {
 
 
     productsArr.forEach((product) => {
-
       // render attributes
       product.render();
-
-      // const colEl = document.createElement('div');
-      // colEl.classList.add('col');
-
-      // const cardEl = document.createElement('div');
-      // cardEl.classList.add('card', 'shadow-sm');
-
-      // colEl.append(cardEl);
-
-      // product img
-      // cardEl.append(product.$imgContainer);
-
-      // card body
-      // const cardBodyEl = document.createElement('div');
-      // cardBodyEl.classList.add('card-body');
-
-      // cardBodyEl.append(product.$heading, product.$colorBtns, product.$sizeBtns, product.$quantityBtns, product.$price, product.$cartActionBtns);
-
-      // cardEl.append(cardBodyEl);
-
-      // productsRowEl.append(colEl);
       productsRowEl.append(product.$container);
     });
 
     rowEl.append(col9El);
-
 
     // display cart
     cart.populateCart();
     cart.renderSimple();
     rowEl.append(cart.$containerSimple);
   }
+
 
   // render for product pages
   else if (reProductPages.test(path)) {
@@ -85,18 +63,6 @@ function renderContent() {
       render() functions 
     */     
 
-    const cardEl = document.createElement('div');
-    cardEl.classList.add('card', 'mx-auto', 'shadow-sm', 'mb-5');
-
-    col9El.append(cardEl);
-
-    const cardRowEl = document.createElement('div');
-    cardRowEl.classList.add('row', 'g-3', 'p-1');
-
-    cardEl.append(cardRowEl);
-
-    // const productsRowEl = col9El.querySelector('#card-container');
-
     productsArr.forEach((product) => {
 
       // check the product to be the main product to diplay
@@ -104,47 +70,9 @@ function renderContent() {
         
         // render attributes
         product.render();
-
-
-        // product img
-        const imgContainerEl = document.createElement('div');
-        imgContainerEl.classList.add('col-md-5', 'p-3', 'align-self-center');
-        
-        const imgEl = product.$imgContainer.querySelector('img');
-        imgEl.classList.add('mx-auto', 'd-block')
-        imgEl.setAttribute('width', 300);
-        imgEl.removeAttribute('height');
-        imgContainerEl.append(imgEl);
-
-        cardEl.append(imgContainerEl);
-
-
-        // // card body
-        const cardBodyContainer = document.createElement('div');
-        cardBodyContainer.classList.add('col-md-7');
-
-        const cardBodyEl = document.createElement('div');
-        cardBodyEl.classList.add('card-body');
-
-
-        const cardBodyRowEl = document.createElement('div');
-        cardBodyRowEl.classList.add('row');
-
-        product.$colorBtns.classList.add('col-5');
-        product.$sizeBtns.classList.add('col-5');
-
-        cardBodyRowEl.append(product.$colorBtns, product.$sizeBtns);
-
-
-        cardBodyEl.append(product.$heading, cardBodyRowEl, product.$quantityBtns, product.$price, product.$cartActionBtns);
-
-        cardBodyContainer.append(cardBodyEl);
-
-
-        // render img and card body
-
-        cardRowEl.append(imgContainerEl, cardBodyContainer);
+        col9El.append(product.$container);
       }
+      
       // if additional products (small snippets)
       else {
         const rowForSnippetsEl = document.createElement('div');
@@ -182,49 +110,18 @@ function renderContent() {
 
 
     productsArr.forEach((product) => {
-
       // render attributes
       product.render();
-
-      const colEl = document.createElement('div');
-      colEl.classList.add('col');
-
-      const cardEl = document.createElement('div');
-      cardEl.classList.add('card', 'shadow-sm');
-
-      colEl.append(cardEl);
-
-      // product img
-      const imgContainerEl = document.createElement('div');
-      imgContainerEl.classList.add('mx-auto', 'mt-3');
-
-      const imgEl = product.$imgContainer.querySelector('img');
-      const imgLinkEl = product.$imgContainer.querySelector('a');
-      imgLinkEl.append(imgEl);
-
-      imgContainerEl.append(imgLinkEl);
-
-      cardEl.append(imgContainerEl);
-
-      // card body
-      const cardBodyEl = document.createElement('div');
-      cardBodyEl.classList.add('card-body');
-
-      cardBodyEl.append(product.$heading, product.$colorBtns, product.$sizeBtns, product.$quantityBtns, product.$price, product.$cartActionBtns);
-
-      cardEl.append(cardBodyEl);
-
-
-      productsRowEl.append(colEl);
+      productsRowEl.append(product.$container);
     });
 
     rowEl.append(col9El);
-
 
     // display cart
     cart.populateCart();
     cart.renderSimple();
     rowEl.append(cart.$containerSimple);
+
   }
 
   // render for checkout
