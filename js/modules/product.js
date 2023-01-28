@@ -73,7 +73,10 @@ class Product{
     }
 
 
-    // view properties (order like html)    
+    // view properties (order like html)
+    this.$container;
+    this.$snippetContainer;
+    
     this.$imgContainer;
 
     this.$heading;
@@ -91,46 +94,8 @@ class Product{
     this.$addToCart;
     this.$clearChoice;
 
-
-    this.$snippetContainer;
   }
 
-
-  // createHtml () {
-
-  //   return `<div class='col'>
-  //   <div class="card shadow-sm">
-  //     <a class="mx-auto" href="/product-pages/${this.id}.html">  
-  //       <img src=${this.imageHref} width="200" height="200">
-  //     </a>
-  
-  //     <div class="card-body">
-  //       <h1 class="mb-4 display-6">${this.name}</h1>
-  //       <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-
-  //       <!-- colour choice -->
-  //       <div class='mb-3' id='color-choice'></div>
-  
-  //       <!-- size choice -->
-  //       <div class='mb-3' id='size-choice'></div>
-  
-  //       <!-- quantity choice -->
-  //       <div class='mb-3' id='quantity-choice'>
-
-  //       <span class="ms-2 badge bg-secondary" id="quantity-text">${this.quantity}</span>
-  //       </div>
-  
-  //       <!-- add to card / clear -->
-  //       <div id="card-actions">
-  //         <button type="button" class="btn btn-primary mt-4 me-2 px-3" id="add-to-cart">Add to cart</button>
-  //         <button type="button" class="btn btn-light mt-4 px-3" id="clear-choice">Clear selection</button>
-  //       </div>
-      
-  //     </div> <!-- card body -->
-  //   </div> <!-- card -->
-  //   </div>`;
-    
-  // }
 
   createSnippetHTML () {
     return `<div class="card shadow-sm">
@@ -180,6 +145,14 @@ class Product{
 
   // create product card here 
   render() {
+    // set up the container
+    this.$container = document.createElement('div');
+    this.$container.classList.add('col');
+
+    const cardEl = document.createElement('div');
+    cardEl.classList.add('card', 'shadow-sm');
+
+    this.$container.append(cardEl);
 
 
     // render img
@@ -198,7 +171,7 @@ class Product{
     imgEl.setAttribute('height', 200);
 
     imgLinkEl.append(imgEl);
-    
+
     this.$imgContainer.append(imgLinkEl);
 
     if (this.isOnSale) {
@@ -209,6 +182,9 @@ class Product{
       badgeEl.innerText = 'SALE';
       this.$imgContainer.append(badgeEl);
     }
+
+    // append img to container
+    cardEl.append(this.$imgContainer);
 
 
     
@@ -368,7 +344,16 @@ class Product{
     });
 
 
+    // create a card body for all the parts above, append everything to it, then append to the container 
+    const cardBodyEl = document.createElement('div');
+    cardBodyEl.classList.add('card-body');
+
+    cardBodyEl.append(this.$heading, this.$colorBtns, this.$sizeBtns, this.$quantityBtns, this.$price, this.$cartActionBtns);
+
+    cardEl.append(cardBodyEl);
+
   }
+
 
   renderSnippet() {
     this.$snippetContainer = document.createElement('div');

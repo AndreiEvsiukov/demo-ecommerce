@@ -40,27 +40,27 @@ function renderContent() {
       // render attributes
       product.render();
 
-      const colEl = document.createElement('div');
-      colEl.classList.add('col');
+      // const colEl = document.createElement('div');
+      // colEl.classList.add('col');
 
-      const cardEl = document.createElement('div');
-      cardEl.classList.add('card', 'shadow-sm');
+      // const cardEl = document.createElement('div');
+      // cardEl.classList.add('card', 'shadow-sm');
 
-      colEl.append(cardEl);
+      // colEl.append(cardEl);
 
       // product img
-      cardEl.append(product.$imgContainer);
+      // cardEl.append(product.$imgContainer);
 
       // card body
-      const cardBodyEl = document.createElement('div');
-      cardBodyEl.classList.add('card-body');
+      // const cardBodyEl = document.createElement('div');
+      // cardBodyEl.classList.add('card-body');
 
-      cardBodyEl.append(product.$heading, product.$colorBtns, product.$sizeBtns, product.$quantityBtns, product.$price, product.$cartActionBtns);
+      // cardBodyEl.append(product.$heading, product.$colorBtns, product.$sizeBtns, product.$quantityBtns, product.$price, product.$cartActionBtns);
 
-      cardEl.append(cardBodyEl);
+      // cardEl.append(cardBodyEl);
 
-
-      productsRowEl.append(colEl);
+      // productsRowEl.append(colEl);
+      productsRowEl.append(product.$container);
     });
 
     rowEl.append(col9El);
