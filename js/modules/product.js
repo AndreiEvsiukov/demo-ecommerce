@@ -152,9 +152,6 @@ class Product{
     const reIndexOrSpecialOffers = new RegExp('\/index|\/special-offers');
     const reIndexOrSpecialOffersTest = reIndexOrSpecialOffers.test(path);
 
-    // const reSpecialOffers = new RegExp('\/special-offers')
-    // const reSpecialOffersTest = reSpecialOffers.test(path);
-
     const reProductPages = new RegExp('\/product-pages\/');
     const reProductPagesTest = reProductPages.test(path);
 
@@ -167,6 +164,7 @@ class Product{
     if (reIndexOrSpecialOffersTest) {
 
       this.$container.classList.add('col');
+      this.$container.classList.add(`${this.id}-container`);
 
       cardEl = document.createElement('div');
       cardEl.classList.add('card', 'shadow-sm');
@@ -179,6 +177,7 @@ class Product{
     else if (reProductPagesTest) {
 
       this.$container.classList.add('card', 'mx-auto', 'shadow-sm', 'mb-5');
+      this.$container.classList.add(`${this.id}-container`);
 
       cardEl = document.createElement('div');
       cardEl.classList.add('row', 'g-3', 'p-1');
