@@ -171,30 +171,7 @@ class Product{
       cardEl = document.createElement('div');
       cardEl.classList.add('card', 'shadow-sm');
       // for gtm
-      cardEl.setAttribute('data-gtm-view', `{
-        "event": "view_item_list",
-        "ecommerce": {
-          "item_list_id": "${path}",
-          "item_list_name": "The only lyst i have",
-          "items": [
-           {
-            "item_id": "${this.id}",
-            "item_name": "${this.name}",
-            "affiliation": "",
-            "coupon": "",
-            "discount": "${this.isOnSale ? this.saleCoef : ''}",
-            "index": 0,
-            item_category: "fruit",
-            item_list_id: "fruits",
-            item_list_name: "Fruits",
-            item_variant: "",
-            location_id: "ChIJIQBpAG2ahYAR_6128GcTUEo",
-            price: 9.99,
-            quantity: 1
-          }
-          ]
-        }
-      }`)
+      cardEl.setAttribute('data-gtm-view', `{"event": "view_item_list", "ecommerce": {"item_list_id": "${path}", "item_list_name": "The only list I have", "items": [{"item_id": "${this.id}", "item_name": "${this.name}", "discount": "${this.isOnSale ? this.saleCoef : ''}", "index": 0, "item_category": "fruit", "item_list_id": "${path}", "item_list_name": "The only list I have", "item_variant": "", "price": ${this.price}, "quantity": ${this.quantity}}]}}`)
 
       this.$container.append(cardEl);
     }
