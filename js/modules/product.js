@@ -164,7 +164,7 @@ class Product{
     if (reIndexOrSpecialOffersTest) {
 
       this.$container.classList.add('col');
-      this.$container.classList.add(`${this.id}-container`);
+      this.$container.setAttribute('id', `${this.id}-container`);
 
       cardEl = document.createElement('div');
       cardEl.classList.add('card', 'shadow-sm');
@@ -177,7 +177,7 @@ class Product{
     else if (reProductPagesTest) {
 
       this.$container.classList.add('card', 'mx-auto', 'shadow-sm', 'mb-5');
-      this.$container.classList.add(`${this.id}-container`);
+      this.$container.setAttribute('id', `${this.id}-container`);
 
       cardEl = document.createElement('div');
       cardEl.classList.add('row', 'g-3', 'p-1');
