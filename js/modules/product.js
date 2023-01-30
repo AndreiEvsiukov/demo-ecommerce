@@ -447,7 +447,6 @@ class Product{
     this.$snippetContainer.innerHTML = this.createSnippetHTML();
 
     if (this.isOnSale) {
-      console.log('on sale');
       const linkInHeaderEl = this.$snippetContainer.querySelector(`#header-${this.id} a`);
       const badgeEl = document.createElement('span');
       badgeEl.classList.add('position-absolute', 'translate-middle', 'badge', 'rounded-pill', 'bg-danger');
@@ -456,9 +455,6 @@ class Product{
       badgeEl.innerText = 'SALE';
       linkInHeaderEl.append(badgeEl);
     }
-
-
-    console.log(this.$snippetContainer);
   }
 
 
@@ -476,8 +472,6 @@ class Product{
   changeColor(newColor) {
     if (this.color !== newColor) {
       this.color = newColor;
-      
-      console.log(this);
     }
   }
 
@@ -485,8 +479,6 @@ class Product{
     if (this.size !== newSize) {
       this.size = newSize;
       this.calculatePrice();
-
-      console.log(this);
     }
   }
 
@@ -497,16 +489,12 @@ class Product{
 
       this.$quantityText.innerText = this.quantity;
 
-      console.log(this);
-
     } else {
       if (this.quantity > 1) {
         --this.quantity;
         this.calculatePrice();
 
         this.$quantityText.innerText = this.quantity;
-
-        console.log(this);
       }
     }
 

@@ -67,6 +67,9 @@ function setProducts() {
       buttonsSize,
       buttonsQuanity
     );
+    
+    // delete that property to avoid displaying the smae product
+    delete productData[productId];
 
     // choose three random products to display 
     const properties = Object.keys(productData);

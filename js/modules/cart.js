@@ -35,8 +35,6 @@ class Cart {
   
       this.items.push(item);
     }
-
-    console.log(this.items);
   
   }
 
