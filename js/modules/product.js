@@ -61,7 +61,7 @@ class Product{
     // price and sale
     this.isOnSale = isOnSale;
     this.saleCoef = saleCoef;
-    this.price = this.isOnSale ? (price * (1 - this.saleCoef)) : (price);
+    this.price = this.isOnSale ? price * (1 - this.saleCoef) : price;
     this.priceToPay;
 
     this.imageHref = imageHref;
@@ -71,6 +71,19 @@ class Product{
       size: sizeBtns,
       quantity: quantityBtns
     }
+
+    // for gtm
+    this.GA4ecomItem = {
+      item_id: this.id,
+      item_name: this.name,
+      discount: this.isOnSale ? price * this.saleCoef : 0,
+      index: 0,
+      item_category: "fruit",
+      item_category2: this.size,
+      item_variant: this.color,
+      price: price,
+      quantity: this.quantity
+    };
   
 
 
@@ -169,7 +182,7 @@ class Product{
       cardEl = document.createElement('div');
       cardEl.classList.add('card', 'shadow-sm');
       // for gtm
-      cardEl.setAttribute('data-gtm-view', `{"event": "view_item_list", "ecommerce": {"item_list_id": "${path}", "item_list_name": "The only list I have", "items": [{"item_id": "${this.id}", "item_name": "${this.name}", "discount": "${this.isOnSale ? this.saleCoef : ''}", "index": 0, "item_category": "fruit", "item_list_id": "${path}", "item_list_name": "The only list I have", "item_variant": "", "price": ${this.price}, "quantity": ${this.quantity}}]}}`)
+      // cardEl.setAttribute('data-gtm-view', `{"event": "view_item_list", "ecommerce": {"item_list_id": "${path}", "item_list_name": "The only list I have", "items": [{"item_id": "${this.id}", "item_name": "${this.name}", "discount": "${this.isOnSale ? this.saleCoef : ''}", "index": 0, "item_category": "fruit", "item_list_id": "${path}", "item_list_name": "The only list I have", "item_variant": "", "price": ${this.price}, "quantity": ${this.quantity}}]}}`)
 
       this.$container.append(cardEl);
     }
@@ -413,7 +426,6 @@ class Product{
       cardEl.append(cardBodyContainer);
     }
 
-
   }
 
 
@@ -441,6 +453,8 @@ class Product{
     this.priceToPay = this.price * this.sizeCoef[this.size] * this.quantity;
     this.$priceText.innerText = this.priceToPay.toFixed(2);
 
+    // for gtm
+    this.GA4ecomItem.value 
   }
 
 
@@ -448,6 +462,9 @@ class Product{
   changeColor(newColor) {
     if (this.color !== newColor) {
       this.color = newColor;
+      
+      // for gtm
+      this.GA4ecomItem.item_variant = newColor;
     }
   }
 

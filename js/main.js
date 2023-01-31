@@ -31,6 +31,7 @@ function renderContent() {
 
     const productsRowEl = document.createElement('div');
     productsRowEl.classList.add('row', 'row-cols-md-1', 'row-cols-lg-2', 'row-cols-xl-3', 'g-3');
+    productsRowEl.setAttribute('data-gtm-view', `{"event": "view_item_list", "ecommerce": {"item_list_id": "${path}", "item_list_name": "Home", "items": [{"item_id": "apple1", "item_name": "Gala", "discount": 0, "index": 1, "item_category": "fruit", "item_list_id": "${path}", "item_list_name": "Home", "price": 20.00, "quantity":1}, {"item_id": "apple2", "item_name": "Bitten granny", "discount": 7.5, "index": 2, "item_category": "fruit", "item_list_id": "${path}", "item_list_name": "Home", "price": 35.00, "quantity":1}, {"item_id": "pear1", "item_name": "Comice", "discount": 0, "index": 3, "item_category": "fruit", "item_list_id": "${path}", "item_list_name": "Home", "price": 29.00, "quantity":1}, {"item_id": "pear2", "item_name": "Red pear", "discount": 0, "index": 4, "item_category": "fruit", "item_list_id": "${path}", "item_list_name": "Home", "price": 49.00, "quantity":1}, {"item_id": "orange1", "item_name": "Orange", "discount": 0, "index": 5, "item_category": "fruit", "item_list_id": "${path}", "item_list_name": "Home", "price": 19.00, "quantity":1}, {"item_id": "orange2", "item_name": "Orange 0.5", "discount": 15, "index": 6, "item_category": "fruit", "item_list_id": "${path}", "item_list_name": "Home", "price": 30.00, "quantity":1} ]}}`);
 
     col9El.append(productsRowEl);
 
@@ -105,6 +106,8 @@ function renderContent() {
 
     const productsRowEl = document.createElement('div');
     productsRowEl.classList.add('row', 'row-cols-md-1', 'row-cols-lg-2', 'row-cols-xl-3', 'g-3');
+    productsRowEl.setAttribute('data-gtm-view', `{"event": "view_item_list", "ecommerce": {"item_list_id": "${path}", "item_list_name": "Special offers", "items": [{"item_id": "apple2", "item_name": "Bitten granny", "discount": 7.5, "index": 2, "item_category": "fruit", "item_list_id": "${path}", "item_list_name": "Special offers", "price": 35.00, "quantity":1}, {"item_id": "orange2", "item_name": "Orange 0.5", "discount": 15, "index": 6, "item_category": "fruit", "item_list_id": "${path}", "item_list_name": "Special offers", "price": 30.00, "quantity":1} ]}}`);
+
 
     col9El.append(productsRowEl);
 
